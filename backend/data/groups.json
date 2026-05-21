@@ -1,0 +1,42 @@
+[
+  {
+    "_id": "mpdqhmlwv30k9lvbyhq",
+    "id": "mpdqhmlwp3clgev5da",
+    "name": "IT",
+    "description": "IT",
+    "members": [],
+    "createdAt": "2026-05-20T07:22:01.268Z"
+  },
+  {
+    "_id": "mpdr95chjuam78dmll8",
+    "id": "mpdr95chije5q9gw53m",
+    "members": [
+      null
+    ],
+    "createdAt": "2026-05-20T07:43:25.265Z"
+  },
+  {
+    "_id": "mpdrkhoe3gacowwj08k",
+    "id": "mpdrkhoe2ot2t9qkx04",
+    "name": "MD2",
+    "description": "MD2",
+    "members": [],
+    "createdAt": "2026-05-20T07:52:14.462Z"
+  },
+  {
+    "_id": "mpdrkloa0r05a8a6dfpp",
+    "id": "mpdrkloabi47s6afgcj",
+    "name": "MD3",
+    "description": "MD3",
+    "members": [],
+    "createdAt": "2026-05-20T07:52:19.642Z"
+  },
+  {
+    "_id": "mpdrkq3bs99fa6avbe",
+    "id": "mpdrkq3beultfq58oim",
+    "name": "MD4",
+    "description": "MD4",
+    "members": [],
+    "createdAt": "2026-05-20T07:52:25.367Z"
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "_id": "mpdkioh60r55r9zbm17o",
+    "id": "mpdkioh6wdujlmyvu8n",
+    "name": "Admin",
+    "email": "admin",
+    "password": "$2a$10$Nz3pBWjC.C7pzG4y/XPhQOBSQxN609MaMPpuFOwF8RkkvM01gsYC.",
+    "role": "admin",
+    "avatar": "https://ui-avatars.com/api/?name=Admin&background=random",
+    "createdAt": "2026-05-20T04:34:52.650Z"
+  },
+  {
+    "_id": "mpdq4x2sid61pksokc8",
+    "id": "mpdq4x2suk3ww4x7go",
+    "name": "Kan Cheung",
+    "email": "kancheung",
+    "password": "$2a$10$YOFzruoeRNRcM6OQMCbO5ucGsWAwQMO91iSBKM/2HnGMmlVlPoAmq",
+    "role": "admin",
+    "avatar": "https://ui-avatars.com/api/?name=Kan%20Cheung&background=random",
+    "createdAt": "2026-05-20T07:12:08.308Z"
+  },
+  {
+    "_id": "mpdq5l9erc0zp8mhl5e",
+    "id": "mpdq5l9ee07wbqmryht",
+    "name": "Jack Tong",
+    "email": "jacktong",
+    "password": "$2a$10$9dYEIEGQ5deV7Y8xWMViHO3KsHyqx2Ow9oJ3qG5yZkmRLAZcPXenS",
+    "role": "admin",
+    "avatar": "https://ui-avatars.com/api/?name=Jack%20Tong&background=random",
+    "createdAt": "2026-05-20T07:12:39.650Z"
+  },
+  {
+    "_id": "mpdq6a9vywje6sad9hn",
+    "id": "mpdq6a9vp4m6j9o35vp",
+    "name": "Chris Huen",
+    "email": "chrishuen",
+    "password": "$2a$10$s4wwWJ8VzdeGj0xnRjUSauZhxDrmAvCcwKMK5TxFdnqc8rzv3pxVe",
+    "role": "admin",
+    "avatar": "https://ui-avatars.com/api/?name=Chris%20Huen&background=random",
+    "createdAt": "2026-05-20T07:13:12.067Z"
+  },
+  {
+    "_id": "mpdr8wg42ipfoqmpy86",
+    "id": "mpdr8wg4wea18jolid",
+    "name": "Agnes Au",
+    "email": "agnesau",
+    "password": "$2a$10$bXhSn6USolDyasnTlVFKr.qrscLX/DB5aYHBM61aA8AWNuzmFp2fq",
+    "role": "user",
+    "avatar": "https://ui-avatars.com/api/?name=Agnes%20Au&background=random",
+    "createdAt": "2026-05-20T07:43:13.732Z"
+  }
+]
