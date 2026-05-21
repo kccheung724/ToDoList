@@ -349,7 +349,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                     {todo.dueDate && (
                       <span className="text-xs text-muted flex items-center gap-1">
                         <Calendar size={12} />
-                        {new Date(todo.dueDate).toLocaleDateString()}
+                        {new Date(todo.dueDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                       </span>
                     )}
                     {todo.assignedBy && (
@@ -519,7 +519,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                   <h4 className="text-sm text-muted mb-1">Due Date</h4>
                   <p className="text-gray-300 flex items-center gap-2">
                     <Calendar size={16} />
-                    {new Date(selectedTodo.dueDate).toLocaleDateString()}
+                    {new Date(selectedTodo.dueDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                   </p>
                 </div>
               )}

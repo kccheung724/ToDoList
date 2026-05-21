@@ -232,7 +232,7 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
                   <h4 className="text-sm text-muted mb-1">Due Date</h4>
                   <p className="text-gray-300 flex items-center gap-2">
                     <CalendarIcon size={16} />
-                    {new Date(selectedTodo.dueDate).toLocaleDateString()}
+                    {new Date(selectedTodo.dueDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                   </p>
                 </div>
               )}

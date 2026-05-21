@@ -196,7 +196,7 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                       <div className="flex items-center gap-2 mt-1">
                         <span className={`text-xs ${isOverdue ? 'text-red-400 font-semibold' : 'text-muted'}`}>
                           {isOverdue ? 'Overdue: ' : 'Due: '}
-                          {new Date(todo.dueDate).toLocaleDateString()}
+                          {new Date(todo.dueDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                         </span>
                         <span className={`text-xs px-2 py-0.5 rounded-full ${
                           todo.priority === 'high' ? 'bg-red-500/20 text-red-400' :
@@ -470,7 +470,7 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                   <h4 className="text-sm text-muted mb-1">Due Date</h4>
                   <p className="text-gray-300 flex items-center gap-2">
                     <Calendar size={16} />
-                    {new Date(selectedTodo.dueDate).toLocaleDateString()}
+                    {new Date(selectedTodo.dueDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                   </p>
                 </div>
               )}
