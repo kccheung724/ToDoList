@@ -128,6 +128,11 @@ router.patch('/:id/toggle', auth, async (req, res) => {
       completedAt: newCompleted ? new Date().toISOString() : null
     });
     
+    if (!updatedTodo) {
+      console.error('updateTodo returned null for id:', req.params.id);
+      return res.status(404).json({ message: 'Todo not found after update' });
+    }
+    
     console.log('Updated todo:', updatedTodo._id, 'new completed:', updatedTodo.completed);
     res.json(updatedTodo);
   } catch (error) {
