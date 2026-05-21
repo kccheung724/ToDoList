@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { CheckCircle2, Clock, AlertCircle, TrendingUp, User, Bell, X, Check, Calendar, FileText } from 'lucide-react'
+import { CheckCircle2, Clock, AlertCircle, TrendingUp, User, Users, Bell, X, Check, Calendar, FileText } from 'lucide-react'
 import { useUsers } from '../hooks/useUsers'
 
 function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => {}, todos = [], toggleTodo, updateTodo, addAttachment }) {

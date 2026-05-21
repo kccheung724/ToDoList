@@ -3,7 +3,7 @@ import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 import { format } from 'date-fns'
 import { useUsers } from '../hooks/useUsers'
-import { CheckCircle2, Clock, X, Calendar as CalendarIcon, FileText, User } from 'lucide-react'
+import { CheckCircle2, Clock, X, Calendar as CalendarIcon, FileText, User, Users } from 'lucide-react'
 
 // Custom styles for larger calendar fonts
 const calendarStyles = `
