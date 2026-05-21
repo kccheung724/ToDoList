@@ -90,7 +90,7 @@ export function useTodos() {
     setError(null)
     try {
       const data = await todosAPI.toggle(id)
-      setTodos(todos.map(todo => 
+      setTodos(prevTodos => prevTodos.map(todo => 
         (todo._id == id || todo.id == id) ? data : todo
       ))
     } catch (error) {
@@ -107,7 +107,7 @@ export function useTodos() {
     setError(null)
     try {
       const data = await todosAPI.update(id, updates)
-      setTodos(todos.map(todo => 
+      setTodos(prevTodos => prevTodos.map(todo => 
         (todo._id == id || todo.id == id) ? data : todo
       ))
       return data
@@ -125,7 +125,7 @@ export function useTodos() {
     setError(null)
     try {
       await todosAPI.delete(id)
-      setTodos(todos.filter(todo => todo._id != id && todo.id != id))
+      setTodos(prevTodos => prevTodos.filter(todo => todo._id != id && todo.id != id))
     } catch (error) {
       setError(error.message)
       console.error('Failed to delete todo:', error)
