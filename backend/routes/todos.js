@@ -52,6 +52,14 @@ router.post('/', auth, async (req, res) => {
     console.log('Creating todo - Full request body:', JSON.stringify(req.body, null, 2));
     console.log('Creating todo:', { title, description, priority, dueDate, assignedTo, assignedBy: req.user.id });
     
+    // Validation: Ensure required fields are present
+    if (!title || !description || !priority || !dueDate) {
+      console.error('Missing required fields:', { title, description, priority, dueDate });
+      return res.status(400).json({ 
+        message: 'Missing required fields. Title, description, priority, and dueDate are required.' 
+      });
+    }
+    
     const todo = await createTodo({
       title,
       description,
@@ -103,16 +111,24 @@ router.put('/:id', auth, async (req, res) => {
 // Toggle todo completion
 router.patch('/:id/toggle', auth, async (req, res) => {
   try {
+    console.log('Toggle todo called for id:', req.params.id);
     const todo = await findTodoById(req.params.id);
     if (!todo) {
+      console.log('Todo not found for id:', req.params.id);
       return res.status(404).json({ message: 'Todo not found' });
     }
     
+    console.log('Found todo:', todo._id, 'current completed:', todo.completed);
+    
+    const newCompleted = !todo.completed;
+    console.log('Setting completed to:', newCompleted);
+    
     const updatedTodo = await updateTodo(req.params.id, {
-      completed: !todo.completed,
-      completedAt: !todo.completed ? new Date().toISOString() : null
+      completed: newCompleted,
+      completedAt: newCompleted ? new Date().toISOString() : null
     });
     
+    console.log('Updated todo:', updatedTodo._id, 'new completed:', updatedTodo.completed);
     res.json(updatedTodo);
   } catch (error) {
     console.error('Toggle todo error:', error);

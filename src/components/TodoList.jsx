@@ -30,7 +30,22 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log('handleSubmit called', { title: title.trim(), description, priority, dueDate, assignedTo, assignedGroup, files })
-    if (title.trim()) {
+    
+    // Validation: Ensure all required fields are filled
+    if (!title.trim()) {
+      alert('Title is required')
+      return
+    }
+    if (!description.trim()) {
+      alert('Description is required')
+      return
+    }
+    if (!dueDate) {
+      alert('Due Date is required')
+      return
+    }
+    
+    try {
       await addTodo({
         title: title.trim(),
         description,
@@ -51,8 +66,9 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
       setAssignedTo('')
       setAssignedGroup('')
       setFiles([])
-    } else {
-      console.log('Title is empty')
+    } catch (error) {
+      console.error('Failed to create task:', error)
+      alert('Failed to create task: ' + (error.message || 'Unknown error'))
     }
   }
 
