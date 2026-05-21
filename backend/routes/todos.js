@@ -131,8 +131,9 @@ router.patch('/:id/toggle', auth, async (req, res) => {
     console.log('Updated todo:', updatedTodo._id, 'new completed:', updatedTodo.completed);
     res.json(updatedTodo);
   } catch (error) {
-    console.error('Toggle todo error:', error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Toggle todo error:', error.message);
+    console.error('Stack trace:', error.stack);
+    res.status(500).json({ message: 'Server error: ' + error.message });
   }
 });
 
