@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
-import { CheckCircle2, Clock, AlertCircle, TrendingUp, User, Users, Bell, X, Check, Calendar, FileText } from 'lucide-react'
+import { CheckCircle2, Clock, AlertCircle, TrendingUp, User, Users, X, Check, Calendar, FileText } from 'lucide-react'
 import { useUsers } from '../hooks/useUsers'
 
 function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => {}, todos = [], toggleTodo, updateTodo, addAttachment }) {
   const { currentUser, users } = useUsers()
-  const [showWelcome, setShowWelcome] = useState(true)
   const [showTaskList, setShowTaskList] = useState(false)
   const [showFilteredTasks, setShowFilteredTasks] = useState(false)
   const [filteredTasksTitle, setFilteredTasksTitle] = useState('')
@@ -64,49 +63,6 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
 
   return (
     <div className="space-y-8">
-      {/* Welcome Alert */}
-      {currentUser && showWelcome && (
-        <div className="bg-gradient-to-r from-primary to-accent rounded-xl p-6 border border-primary/30 relative">
-          <button
-            onClick={() => setShowWelcome(false)}
-            className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors"
-          >
-            <X size={20} />
-          </button>
-          <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center">
-              <img
-                src={currentUser.avatar}
-                alt={currentUser.name}
-                className="w-14 h-14 rounded-full"
-              />
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold text-white">
-                Welcome back, {currentUser.name}!
-              </h3>
-              <p className="text-white/80 mt-1">
-                You have {pendingTodos} pending task{pendingTodos !== 1 ? 's' : ''} to complete.
-              </p>
-            </div>
-            <div className="ml-auto flex items-center gap-3">
-              {/* Notification Bell - Pink */}
-              <button
-                onClick={() => setShowNotifications && setShowNotifications(true)}
-                className="relative p-3 rounded-xl bg-pink-500 text-white shadow-lg shadow-pink-500/30 hover:bg-pink-400 transition-all"
-              >
-                <Bell size={24} />
-                {unreadCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold border-2 border-pink-500">
-                    {unreadCount > 9 ? '9+' : unreadCount}
-                  </span>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       <div>
         <h2 className="text-3xl font-bold mb-2">Dashboard</h2>
         <p className="text-muted">Overview of your tasks and productivity</p>
