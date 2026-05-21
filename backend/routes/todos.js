@@ -49,7 +49,8 @@ router.post('/', auth, async (req, res) => {
   try {
     const { title, description, remarks, priority, dueDate, assignedTo, assignedGroup, attachments } = req.body;
     
-    console.log('Creating todo:', { title, assignedTo, assignedBy: req.user.id });
+    console.log('Creating todo - Full request body:', JSON.stringify(req.body, null, 2));
+    console.log('Creating todo:', { title, description, priority, dueDate, assignedTo, assignedBy: req.user.id });
     
     const todo = await createTodo({
       title,
@@ -63,6 +64,7 @@ router.post('/', auth, async (req, res) => {
       assignedBy: req.user.id // Use id not _id for consistency
     });
     
+    console.log('Todo created:', JSON.stringify(todo, null, 2));
     res.status(201).json(todo);
   } catch (error) {
     console.error('Create todo error:', error);
