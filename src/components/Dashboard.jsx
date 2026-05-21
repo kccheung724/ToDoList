@@ -66,13 +66,7 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
     <div className="space-y-8">
       {/* Welcome Alert */}
       {currentUser && showWelcome && (
-        <div className="bg-gradient-to-r from-primary to-accent rounded-xl p-6 border border-primary/30 relative">
-          <button
-            onClick={() => setShowWelcome(false)}
-            className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors"
-          >
-            <X size={20} />
-          </button>
+        <div className="bg-gradient-to-r from-primary to-accent rounded-xl p-6 border border-primary/30">
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center">
               <img
