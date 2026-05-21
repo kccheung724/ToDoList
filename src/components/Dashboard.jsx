@@ -494,6 +494,17 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                 </div>
               )}
 
+              {/* Assigned To */}
+              {selectedTodo.assignedTo && (
+                <div>
+                  <h4 className="text-sm text-muted mb-1">Assigned To</h4>
+                  <p className="text-gray-300 flex items-center gap-2">
+                    <Users size={16} />
+                    {users.find(u => u.id === selectedTodo.assignedTo)?.name || 'Unknown'}
+                  </p>
+                </div>
+              )}
+
               {/* Completion Remarks */}
               {selectedTodo.completed && selectedTodo.completionRemarks && (
                 <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">

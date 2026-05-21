@@ -519,6 +519,17 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                 </div>
               )}
 
+              {/* Assigned To */}
+              {selectedTodo.assignedTo && (
+                <div>
+                  <h4 className="text-sm text-muted mb-1">Assigned To</h4>
+                  <p className="text-gray-300 flex items-center gap-2">
+                    <Users size={16} />
+                    {users.find(u => u.id == selectedTodo.assignedTo)?.name || 'Unknown'}
+                  </p>
+                </div>
+              )}
+
               {/* Attachments */}
               {selectedTodo.attachments && selectedTodo.attachments.length > 0 && (
                 <div>
