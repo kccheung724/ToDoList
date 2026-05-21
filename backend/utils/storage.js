@@ -18,10 +18,26 @@ async function readJsonFile(filename) {
   const filePath = path.join(DATA_DIR, filename);
   try {
     const data = await fs.readFile(filePath, 'utf8');
+    if (!data.trim()) {
+      console.error(`Empty file: ${filename}`);
+      return [];
+    }
     return JSON.parse(data);
   } catch (error) {
     if (error.code === 'ENOENT') {
       // File doesn't exist, return empty array
+      return [];
+    }
+    if (error instanceof SyntaxError) {
+      console.error(`Invalid JSON in ${filename}:`, error.message);
+      // Backup corrupted file and return empty array
+      try {
+        const backupPath = filePath + '.backup.' + Date.now();
+        await fs.copyFile(filePath, backupPath);
+        console.error(`Backed up corrupted file to: ${backupPath}`);
+      } catch (backupError) {
+        console.error('Failed to backup corrupted file:', backupError);
+      }
       return [];
     }
     throw error;
@@ -31,7 +47,14 @@ async function readJsonFile(filename) {
 // Helper to write JSON file
 async function writeJsonFile(filename, data) {
   const filePath = path.join(DATA_DIR, filename);
-  await fs.writeFile(filePath, JSON.stringify(data, null, 2));
+  try {
+    const jsonString = JSON.stringify(data, null, 2);
+    await fs.writeFile(filePath, jsonString);
+    console.log(`Successfully wrote ${filename} (${jsonString.length} bytes)`);
+  } catch (error) {
+    console.error(`Failed to write ${filename}:`, error.message);
+    throw error;
+  }
 }
 
 // Generate unique ID
@@ -144,10 +167,17 @@ async function createTodo(todoData) {
 }
 
 async function updateTodo(id, updates) {
+  console.log('updateTodo called for id:', id);
   const todos = await getTodos();
-  const index = todos.findIndex(t => t.id === id || t._id === id);
+  console.log('Loaded', todos.length, 'todos');
   
-  if (index === -1) return null;
+  const index = todos.findIndex(t => t.id === id || t._id === id);
+  console.log('Found todo at index:', index);
+  
+  if (index === -1) {
+    console.log('Todo not found for id:', id);
+    return null;
+  }
   
   todos[index] = { 
     ...todos[index], 
@@ -155,7 +185,9 @@ async function updateTodo(id, updates) {
     updatedAt: new Date().toISOString() 
   };
   
+  console.log('Saving updated todo:', todos[index]._id, 'completed:', todos[index].completed);
   await saveTodos(todos);
+  console.log('Save completed successfully');
   return todos[index];
 }
 
