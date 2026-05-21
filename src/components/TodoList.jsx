@@ -87,8 +87,8 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
   }
 
   const canDeleteTask = (todo) => {
-    // User can only delete tasks they created (assignedBy)
-    return todo.assignedBy == currentUser?.id
+    // User can delete if they created the task OR if they are an admin
+    return todo.assignedBy == currentUser?.id || currentUser?.role === 'admin'
   }
 
   const filteredTodos = todos.filter(todo => {
