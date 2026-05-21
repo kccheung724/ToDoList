@@ -636,7 +636,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                       if (completionRemarks.trim()) {
                         updateTodo(selectedTodo._id || selectedTodo.id, { completionRemarks: completionRemarks.trim() })
                       }
-                      setSelectedTodo({...selectedTodo, completed: true, completionRemarks: completionRemarks.trim()})
+                      setSelectedTodo(null)
                       setCompletionRemarks('')
                     }}
                     className="flex-1 bg-green-500/20 text-green-400 py-3 rounded-lg font-semibold hover:bg-green-500/30 transition-all flex items-center justify-center gap-2"
