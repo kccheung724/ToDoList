@@ -628,6 +628,23 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                   />
                 </label>
 
+                {/* Complete Task Button - Saves remarks automatically */}
+                {!selectedTodo.completed && (
+                  <button
+                    onClick={() => {
+                      toggleTodo(selectedTodo._id || selectedTodo.id)
+                      if (completionRemarks.trim()) {
+                        updateTodo(selectedTodo._id || selectedTodo.id, { completionRemarks: completionRemarks.trim() })
+                      }
+                      setSelectedTodo({...selectedTodo, completed: true, completionRemarks: completionRemarks.trim()})
+                      setCompletionRemarks('')
+                    }}
+                    className="flex-1 bg-green-500/20 text-green-400 py-3 rounded-lg font-semibold hover:bg-green-500/30 transition-all flex items-center justify-center gap-2"
+                  >
+                    <CheckCircle2 size={20} />
+                    Complete Task
+                  </button>
+                )}
                 <button
                   onClick={() => setSelectedTodo(null)}
                   className="flex-1 bg-gray-700 text-white py-3 rounded-lg font-semibold hover:bg-gray-600 transition-all"
