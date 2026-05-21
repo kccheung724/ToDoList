@@ -45,13 +45,23 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
       return
     }
     
+    // Validate and convert date format from dd/mm/yyyy to yyyy-mm-dd
+    const dateRegex = /^(\d{2})\/(\d{2})\/(\d{4})$/
+    const match = dueDate.match(dateRegex)
+    if (!match) {
+      alert('Due Date must be in format dd/mm/yyyy (e.g., 21/05/2026)')
+      return
+    }
+    const [, day, month, year] = match
+    const isoDate = `${year}-${month}-${day}`
+    
     try {
       await addTodo({
         title: title.trim(),
         description,
         remarks,
         priority,
-        dueDate,
+        dueDate: isoDate,
         assignedTo: assignedTo || null,
         assignedGroup: assignedGroup || null,
         assignedBy: currentUser?.id || null,
@@ -199,9 +209,11 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
             <div className="flex-1">
               <label className="block text-sm text-muted mb-2">Due Date</label>
               <input
-                type="date"
+                type="text"
+                placeholder="dd/mm/yyyy"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
+                pattern="\d{2}/\d{2}/\d{4}"
                 className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
               />
             </div>
