@@ -4,6 +4,7 @@ import { useUsers } from '../hooks/useUsers'
 
 function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => {}, todos = [], toggleTodo, updateTodo, addAttachment }) {
   const { currentUser, users } = useUsers()
+  const [showWelcome, setShowWelcome] = useState(true)
   const [showTaskList, setShowTaskList] = useState(false)
   const [showFilteredTasks, setShowFilteredTasks] = useState(false)
   const [filteredTasksTitle, setFilteredTasksTitle] = useState('')
@@ -63,6 +64,35 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
 
   return (
     <div className="space-y-8">
+      {/* Welcome Alert */}
+      {currentUser && showWelcome && (
+        <div className="bg-gradient-to-r from-primary to-accent rounded-xl p-6 border border-primary/30 relative">
+          <button
+            onClick={() => setShowWelcome(false)}
+            className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors"
+          >
+            <X size={20} />
+          </button>
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center">
+              <img
+                src={currentUser.avatar}
+                alt={currentUser.name}
+                className="w-14 h-14 rounded-full"
+              />
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold text-white">
+                Welcome back, {currentUser.name}!
+              </h3>
+              <p className="text-white/80 mt-1">
+                You have {pendingTodos} pending task{pendingTodos !== 1 ? 's' : ''} to complete.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div>
         <h2 className="text-3xl font-bold mb-2">Dashboard</h2>
         <p className="text-muted">Overview of your tasks and productivity</p>
