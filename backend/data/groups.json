@@ -1,40 +1,21 @@
 [
   {
-    "_id": "mpnscp2htua4j4iktp",
-    "id": "mpnscp2hp7ysjtq79st",
-    "createdAt": "2026-05-27T08:11:52.169Z",
-    "name": "IT",
-    "description": "IT"
+    "_id": "mpnvf97ai4ho5lj816l",
+    "id": "mpnvf97ap60ne5lt18",
+    "members": [
+      "mpdq4x2sid61pksokc8",
+      "mpdq6a9vywje6sad9hn",
+      "mpdq5l9erc0zp8mhl5e"
+    ],
+    "createdAt": "2026-05-27T09:37:50.422Z"
   },
   {
-    "_id": "mpnscx83v9ibj6tl2fn",
-    "id": "mpnscx83vctd5uoizf",
-    "name": "MD2",
-    "description": "MD2",
-    "members": [],
-    "createdAt": "2026-05-27T08:12:02.739Z"
-  },
-  {
-    "_id": "mpnsd1adinfijwjqqhl",
-    "id": "mpnsd1ad8ua8q2d0t3s",
-    "name": "MD3",
-    "description": "MD3",
-    "members": [],
-    "createdAt": "2026-05-27T08:12:08.005Z"
-  },
-  {
-    "_id": "mpnsd88a7ndgtxr0qgw",
-    "id": "mpnsd88ap3mzmbnr1t",
-    "name": "MD4",
-    "description": "MD4",
-    "members": [],
-    "createdAt": "2026-05-27T08:12:17.002Z"
-  },
-  {
-    "_id": "mpnuy4nqg2aq36wwmz",
-    "id": "mpnuy4nq0vy1sk8pa3ab",
-    "createdAt": "2026-05-27T09:24:31.382Z",
-    "name": "AM",
-    "description": "AM"
+    "_id": "mpnvfnb55vltqdipvpp",
+    "id": "mpnvfnb5woofh34ml6d",
+    "members": [
+      "mpnuwakhn3b2ovkr97",
+      "mpdr8wg42ipfoqmpy86"
+    ],
+    "createdAt": "2026-05-27T09:38:08.705Z"
   }
 ]

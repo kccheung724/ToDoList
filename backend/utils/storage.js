@@ -243,7 +243,7 @@ async function createGroup(groupData) {
 
 async function updateGroup(id, updates) {
   const groups = await getGroups();
-  const index = groups.findIndex(g => g.id === id || g._id === id);
+  const index = groups.findIndex(g => g.id == id || g._id == id);
   
   if (index === -1) return null;
   
