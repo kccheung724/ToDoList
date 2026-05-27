@@ -155,8 +155,8 @@ function GroupManagement() {
 
                 {/* Members */}
                 <div className="mt-4">
-                  <h5 className="text-sm font-semibold mb-2">Members ({group.members.length})</h5>
-                  {group.members.length === 0 ? (
+                  <h5 className="text-sm font-semibold mb-2">Members ({group.members?.length || 0})</h5>
+                  {(!group.members || group.members.length === 0) ? (
                     <p className="text-sm text-muted">No members yet</p>
                   ) : (
                     <div className="flex flex-wrap gap-2">
@@ -199,7 +199,7 @@ function GroupManagement() {
                     >
                       <option value="">Add member...</option>
                       {users
-                        .filter(user => !group.members.includes(user._id || user.id))
+                        .filter(user => !(group.members || []).includes(user._id || user.id))
                         .map(user => (
                           <option key={user._id || user.id} value={user._id || user.id}>{user.name}</option>
                         ))

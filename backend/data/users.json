@@ -50,5 +50,17 @@
     "role": "user",
     "avatar": "https://ui-avatars.com/api/?name=Agnes%20Au&background=random",
     "createdAt": "2026-05-20T07:43:13.732Z"
+  },
+  {
+    "_id": "mpnuwakhn3b2ovkr97",
+    "id": "mpnuwakh19db3pc8w1j",
+    "name": "Celia Chan",
+    "email": "celiachan",
+    "emailAddress": "",
+    "password": "$2a$10$.L6CHnvc3DWe52TXOKMADeNMPXLZnskVuuaUa.Tn/4ng0d4jGrncW",
+    "role": "user",
+    "group": "",
+    "avatar": "https://ui-avatars.com/api/?name=Celia%20Chan&background=random",
+    "createdAt": "2026-05-27T09:23:05.731Z"
   }
 ]
