@@ -49,7 +49,7 @@ export function useGroups() {
     try {
       const data = await groupsAPI.update(id, updates)
       setGroups(groups.map(group => 
-        group._id === id ? data : group
+        (group._id == id || group.id == id) ? data : group
       ))
       return data
     } catch (error) {
