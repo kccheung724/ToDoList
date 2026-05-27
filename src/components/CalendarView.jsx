@@ -76,7 +76,7 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
         </div>
 
         {/* Calendar Days */}
-        <div className="grid grid-cols-7 auto-rows-fr">
+        <div className="grid grid-cols-7">
           {calendarDays.map((day, index) => {
             const dayTodos = getTodosForDate(day)
             const isCurrentMonth = isSameMonth(day, currentMonth)
@@ -85,7 +85,7 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
             return (
               <div
                 key={index}
-                className={`p-2 border-r border-b border-gray-300 last:border-r-0 ${
+                className={`${dayTodos.length > 0 ? 'h-auto' : 'min-h-[40px]'} p-2 border-r border-b border-gray-300 last:border-r-0 ${
                   !isCurrentMonth ? 'bg-gray-100 text-black' : 'bg-white'
                 } ${isToday ? 'ring-2 ring-primary ring-inset' : ''}`}
               >
