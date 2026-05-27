@@ -85,7 +85,7 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
             return (
               <div
                 key={index}
-                className={`min-h-[140px] p-2 border-r border-b border-gray-300 last:border-r-0 ${
+                className={`h-auto p-2 border-r border-b border-gray-300 last:border-r-0 ${
                   !isCurrentMonth ? 'bg-gray-100 text-black' : 'bg-white'
                 } ${isToday ? 'ring-2 ring-primary ring-inset' : ''}`}
               >
@@ -96,11 +96,11 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
 
                 {/* Tasks */}
                 <div className="space-y-1">
-                  {dayTodos.slice(0, 2).map(todo => (
+                  {dayTodos.slice(0, 3).map(todo => (
                     <div
                       key={todo._id || todo.id}
                       onClick={() => setSelectedTodo(todo)}
-                      className={`text-xs p-1 rounded cursor-pointer break-words leading-tight ${
+                      className={`text-xs p-1.5 rounded cursor-pointer break-words leading-tight ${
                         todo.completed
                           ? 'bg-green-600 text-white'
                           : todo.priority === 'high'
@@ -110,12 +110,13 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
                           : 'bg-blue-600 text-white'
                       }`}
                     >
-                      {todo.title}
+                      <div className="font-semibold">{todo.title}</div>
+                      {todo.description && <div className="text-[10px] opacity-90 mt-0.5">{todo.description}</div>}
                     </div>
                   ))}
-                  {dayTodos.length > 2 && (
+                  {dayTodos.length > 3 && (
                     <div className="text-xs text-gray-400 text-center">
-                      +{dayTodos.length - 2} more
+                      +{dayTodos.length - 3} more
                     </div>
                   )}
                 </div>
