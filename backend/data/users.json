@@ -34,10 +34,12 @@
     "id": "mpdq6a9vp4m6j9o35vp",
     "name": "Chris Huen",
     "email": "chrishuen",
-    "password": "$2a$10$s4wwWJ8VzdeGj0xnRjUSauZhxDrmAvCcwKMK5TxFdnqc8rzv3pxVe",
+    "password": "$2a$10$dpxYUOEC5fbXNFhhXVNN9OpmHlSAXkcLTc8EOMUVRWX/EwzOM5mgy",
     "role": "admin",
     "avatar": "https://ui-avatars.com/api/?name=Chris%20Huen&background=random",
-    "createdAt": "2026-05-20T07:13:12.067Z"
+    "createdAt": "2026-05-20T07:13:12.067Z",
+    "group": "",
+    "emailAddress": "chrishuen@simplesymbol.com"
   },
   {
     "_id": "mpdr8wg42ipfoqmpy86",

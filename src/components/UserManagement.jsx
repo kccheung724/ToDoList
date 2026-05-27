@@ -259,9 +259,13 @@ function UserManagement() {
                     Set Current
                   </button>
                 )}
-                {isAdmin() && user.role !== 'admin' && (
+                {isAdmin() && currentUser?.id !== (user._id || user.id) && (
                   <button
-                    onClick={() => deleteUser(user._id || user.id)}
+                    onClick={() => {
+                      if (confirm(`Are you sure you want to delete ${user.name}?`)) {
+                        deleteUser(user._id || user.id)
+                      }
+                    }}
                     className="p-2 text-red-400 hover:bg-red-500/20 rounded-lg transition-all"
                   >
                     <Trash2 size={18} />
