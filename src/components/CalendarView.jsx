@@ -85,7 +85,7 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
             return (
               <div
                 key={index}
-                className={`min-h-[120px] p-2 border-r border-b border-gray-700 last:border-r-0 ${
+                className={`min-h-[140px] p-2 border-r border-b border-gray-700 last:border-r-0 ${
                   !isCurrentMonth ? 'bg-gray-800/50 text-gray-500' : 'bg-surface'
                 } ${isToday ? 'ring-2 ring-primary ring-inset' : ''}`}
               >
@@ -96,11 +96,11 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
 
                 {/* Tasks */}
                 <div className="space-y-1">
-                  {dayTodos.slice(0, 3).map(todo => (
+                  {dayTodos.slice(0, 2).map(todo => (
                     <div
                       key={todo._id || todo.id}
                       onClick={() => setSelectedTodo(todo)}
-                      className={`text-xs p-1.5 rounded cursor-pointer truncate ${
+                      className={`text-xs p-1 rounded cursor-pointer break-words leading-tight ${
                         todo.completed
                           ? 'bg-green-600 text-white'
                           : todo.priority === 'high'
@@ -113,9 +113,9 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
                       {todo.title}
                     </div>
                   ))}
-                  {dayTodos.length > 3 && (
+                  {dayTodos.length > 2 && (
                     <div className="text-xs text-gray-400 text-center">
-                      +{dayTodos.length - 3} more
+                      +{dayTodos.length - 2} more
                     </div>
                   )}
                 </div>
