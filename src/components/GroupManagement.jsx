@@ -161,7 +161,7 @@ function GroupManagement() {
                   ) : (
                     <div className="flex flex-wrap gap-2">
                       {group.members.map((memberId) => {
-                        const member = users.find(u => u.id === memberId)
+                        const member = users.find(u => u.id == memberId || u._id == memberId)
                         if (!member) return null
                         return (
                           <div
@@ -191,7 +191,7 @@ function GroupManagement() {
                     <select
                       onChange={(e) => {
                         if (e.target.value) {
-                          addMemberToGroup(group._id || group.id, parseInt(e.target.value))
+                          addMemberToGroup(group._id || group.id, e.target.value)
                         }
                       }}
                       value=""
@@ -199,7 +199,7 @@ function GroupManagement() {
                     >
                       <option value="">Add member...</option>
                       {users
-                        .filter(user => !(group.members || []).includes(user._id || user.id))
+                        .filter(user => !(group.members || []).some(m => m == (user._id || user.id)))
                         .map(user => (
                           <option key={user._id || user.id} value={user._id || user.id}>{user.name}</option>
                         ))

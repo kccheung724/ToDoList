@@ -77,18 +77,21 @@ export function useGroups() {
   }
 
   const addMemberToGroup = async (groupId, userId) => {
-    const group = groups.find(g => g._id === groupId)
+    const group = groups.find(g => g._id == groupId || g.id == groupId)
     if (!group) return
     
-    const updatedMembers = [...group.members, userId]
+    const currentMembers = group.members || []
+    if (currentMembers.some(m => m == userId)) return // Already a member
+    
+    const updatedMembers = [...currentMembers, userId]
     await updateGroup(groupId, { members: updatedMembers })
   }
 
   const removeMemberFromGroup = async (groupId, userId) => {
-    const group = groups.find(g => g._id === groupId)
+    const group = groups.find(g => g._id == groupId || g.id == groupId)
     if (!group) return
     
-    const updatedMembers = group.members.filter(id => id !== userId)
+    const updatedMembers = (group.members || []).filter(id => id != userId)
     await updateGroup(groupId, { members: updatedMembers })
   }
 
