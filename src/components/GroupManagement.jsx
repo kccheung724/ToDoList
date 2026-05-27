@@ -23,7 +23,7 @@ function GroupManagement() {
 
   const startEditGroup = (group) => {
     setEditingGroup(group._id || group.id)
-    setEditName(group.name)
+    setEditName(group.name || '')
     setEditDescription(group.description || '')
   }
 
@@ -190,8 +190,10 @@ function GroupManagement() {
                   <div className="mt-3">
                     <select
                       onChange={(e) => {
-                        if (e.target.value) {
-                          addMemberToGroup(group._id || group.id, e.target.value)
+                        const selectedValue = e.target.value
+                        if (selectedValue) {
+                          addMemberToGroup(group._id || group.id, selectedValue)
+                          e.target.value = ''
                         }
                       }}
                       value=""

@@ -3,8 +3,11 @@
     "_id": "mpnscp2htua4j4iktp",
     "id": "mpnscp2hp7ysjtq79st",
     "createdAt": "2026-05-27T08:11:52.169Z",
-    "name": "IT",
-    "description": "IT"
+    "members": [
+      "mpdq4x2sid61pksokc8",
+      "mpdq6a9vywje6sad9hn",
+      "mpdq5l9erc0zp8mhl5e"
+    ]
   },
   {
     "_id": "mpnscx83v9ibj6tl2fn",
