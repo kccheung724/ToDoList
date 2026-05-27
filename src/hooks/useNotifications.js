@@ -24,9 +24,9 @@ export function useNotifications(currentUser, todos) {
 
     // Check for new tasks assigned to current user
     const newTasks = todos.filter(todo => 
-      todo.assignedTo === currentUser.id && 
-      todo.assignedBy !== currentUser.id &&
-      !notifications.some(n => n.type === 'new_task' && n.taskId === todo.id)
+      todo.assignedTo == currentUser.id && 
+      todo.assignedBy != currentUser.id &&
+      !notifications.some(n => n.type === 'new_task' && n.taskId == todo.id)
     )
 
     newTasks.forEach(task => {
@@ -47,8 +47,8 @@ export function useNotifications(currentUser, todos) {
       if (!todo.dueDate || todo.completed) return false
       const dueDate = new Date(todo.dueDate)
       return dueDate.toDateString() === today.toDateString() &&
-             todo.assignedTo === currentUser.id &&
-             !notifications.some(n => n.type === 'due_today' && n.taskId === todo.id)
+             todo.assignedTo == currentUser.id &&
+             !notifications.some(n => n.type === 'due_today' && n.taskId == todo.id)
     })
 
     todayTasks.forEach(task => {
@@ -66,9 +66,9 @@ export function useNotifications(currentUser, todos) {
     // Check for tasks completed by assignee (current user assigned these tasks to others)
     const completedByAssignee = todos.filter(todo =>
       todo.completed &&
-      todo.assignedBy === currentUser.id &&
-      todo.assignedTo !== currentUser.id &&
-      !notifications.some(n => n.type === 'completed_by_assignee' && n.taskId === todo.id)
+      todo.assignedBy == currentUser.id &&
+      todo.assignedTo != currentUser.id &&
+      !notifications.some(n => n.type === 'completed_by_assignee' && n.taskId == todo.id)
     )
 
     completedByAssignee.forEach(task => {
