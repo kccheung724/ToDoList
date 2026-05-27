@@ -85,7 +85,7 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
             return (
               <div
                 key={index}
-                className={`h-auto p-2 border-r border-b border-gray-300 last:border-r-0 ${
+                className={`${dayTodos.length > 0 ? 'h-auto' : 'min-h-[60px]'} p-2 border-r border-b border-gray-300 last:border-r-0 ${
                   !isCurrentMonth ? 'bg-gray-100 text-black' : 'bg-white'
                 } ${isToday ? 'ring-2 ring-primary ring-inset' : ''}`}
               >
