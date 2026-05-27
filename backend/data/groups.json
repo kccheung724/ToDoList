@@ -1,42 +1,42 @@
 [
   {
-    "_id": "mpdqhmlwv30k9lvbyhq",
-    "id": "mpdqhmlwp3clgev5da",
-    "name": "IT",
-    "description": "IT",
+    "_id": "mpnscg3wfda7a00ms6l",
+    "id": "mpnscg3wnhhyutqp2ap",
+    "name": "AM",
+    "description": "AM",
     "members": [],
-    "createdAt": "2026-05-20T07:22:01.268Z"
+    "createdAt": "2026-05-27T08:11:40.556Z"
   },
   {
-    "_id": "mpdr95chjuam78dmll8",
-    "id": "mpdr95chije5q9gw53m",
-    "members": [
-      null
-    ],
-    "createdAt": "2026-05-20T07:43:25.265Z"
+    "_id": "mpnscp2htua4j4iktp",
+    "id": "mpnscp2hp7ysjtq79st",
+    "name": "IT",
+    "description": "",
+    "members": [],
+    "createdAt": "2026-05-27T08:11:52.169Z"
   },
   {
-    "_id": "mpdrkhoe3gacowwj08k",
-    "id": "mpdrkhoe2ot2t9qkx04",
+    "_id": "mpnscx83v9ibj6tl2fn",
+    "id": "mpnscx83vctd5uoizf",
     "name": "MD2",
     "description": "MD2",
     "members": [],
-    "createdAt": "2026-05-20T07:52:14.462Z"
+    "createdAt": "2026-05-27T08:12:02.739Z"
   },
   {
-    "_id": "mpdrkloa0r05a8a6dfpp",
-    "id": "mpdrkloabi47s6afgcj",
+    "_id": "mpnsd1adinfijwjqqhl",
+    "id": "mpnsd1ad8ua8q2d0t3s",
     "name": "MD3",
     "description": "MD3",
     "members": [],
-    "createdAt": "2026-05-20T07:52:19.642Z"
+    "createdAt": "2026-05-27T08:12:08.005Z"
   },
   {
-    "_id": "mpdrkq3bs99fa6avbe",
-    "id": "mpdrkq3beultfq58oim",
+    "_id": "mpnsd88a7ndgtxr0qgw",
+    "id": "mpnsd88ap3mzmbnr1t",
     "name": "MD4",
     "description": "MD4",
     "members": [],
-    "createdAt": "2026-05-20T07:52:25.367Z"
+    "createdAt": "2026-05-27T08:12:17.002Z"
   }
 ]

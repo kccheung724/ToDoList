@@ -1,163 +1,130 @@
 import { useState } from 'react'
-import Calendar from 'react-calendar'
-import 'react-calendar/dist/Calendar.css'
-import { format } from 'date-fns'
+import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay, addMonths, subMonths, getDate } from 'date-fns'
 import { useUsers } from '../hooks/useUsers'
-import { CheckCircle2, Clock, X, Calendar as CalendarIcon, FileText, User, Users } from 'lucide-react'
-
-// Custom styles for larger calendar fonts
-const calendarStyles = `
-  .react-calendar {
-    font-size: 1.1rem !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-  .react-calendar__navigation button {
-    font-size: 1.2rem !important;
-    font-weight: 600 !important;
-    padding: 0.75rem !important;
-  }
-  .react-calendar__month-view__weekdays {
-    font-size: 1rem !important;
-    font-weight: 600 !important;
-  }
-  .react-calendar__month-view__weekdays__weekday {
-    padding: 0.75rem !important;
-  }
-  .react-calendar__tile {
-    font-size: 1.1rem !important;
-    padding: 1.25rem 0.5rem !important;
-    min-height: 50px !important;
-  }
-  .react-calendar__tile abbr {
-    font-size: 1.1rem !important;
-  }
-  .react-calendar__month-view__days {
-    min-height: 350px !important;
-  }
-`
+import { CheckCircle2, Clock, X, Calendar as CalendarIcon, FileText, User, Users, ChevronLeft, ChevronRight } from 'lucide-react'
 
 function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
-  const [selectedDate, setSelectedDate] = useState(new Date())
+  const [currentMonth, setCurrentMonth] = useState(new Date())
   const [selectedTodo, setSelectedTodo] = useState(null)
   const [completionRemarks, setCompletionRemarks] = useState('')
   const { users } = useUsers()
 
-  const selectedDateTodos = todos.filter(todo => {
-    const todoDate = new Date(todo.dueDate || todo.createdAt)
-    return (
-      todoDate.getDate() === selectedDate.getDate() &&
-      todoDate.getMonth() === selectedDate.getMonth() &&
-      todoDate.getFullYear() === selectedDate.getFullYear()
-    )
-  })
-
-  const getTileContent = ({ date, view }) => {
-    if (view === 'month') {
-      const dayTodos = todos.filter(todo => {
-        const todoDate = new Date(todo.dueDate || todo.createdAt)
-        return (
-          todoDate.getDate() === date.getDate() &&
-          todoDate.getMonth() === date.getMonth() &&
-          todoDate.getFullYear() === date.getFullYear()
-        )
-      })
-
-      if (dayTodos.length > 0) {
-        return (
-          <div className="flex gap-1 justify-center mt-1">
-            {dayTodos.slice(0, 3).map((_, i) => (
-              <div
-                key={i}
-                className={`w-1.5 h-1.5 rounded-full ${
-                  dayTodos.every(t => t.completed)
-                    ? 'bg-green-500'
-                    : dayTodos.some(t => t.priority === 'high')
-                    ? 'bg-red-500'
-                    : 'bg-primary'
-                }`}
-              />
-            ))}
-          </div>
-        )
-      }
-    }
-    return null
+  // Get todos for a specific date
+  const getTodosForDate = (date) => {
+    return todos.filter(todo => {
+      const todoDate = new Date(todo.dueDate || todo.createdAt)
+      return isSameDay(todoDate, date)
+    })
   }
 
+  // Generate calendar days
+  const generateCalendarDays = () => {
+    const monthStart = startOfMonth(currentMonth)
+    const monthEnd = endOfMonth(monthStart)
+    const calendarStart = startOfWeek(monthStart, { weekStartsOn: 0 })
+    const calendarEnd = endOfWeek(monthEnd, { weekStartsOn: 0 })
+
+    const days = []
+    let day = calendarStart
+
+    while (day <= calendarEnd) {
+      days.push(day)
+      day = addDays(day, 1)
+    }
+
+    return days
+  }
+
+  const calendarDays = generateCalendarDays()
+  const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
   return (
-    <>
-      <style>{calendarStyles}</style>
-      <div className="space-y-8">
+    <div className="space-y-8">
       <div>
         <h2 className="text-3xl font-bold mb-2">Calendar</h2>
         <p className="text-muted">View and manage your tasks by date</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Calendar */}
-        <div className="bg-surface rounded-xl p-6 border border-gray-700">
-          <Calendar
-            onChange={setSelectedDate}
-            value={selectedDate}
-            tileContent={getTileContent}
-            className="!bg-transparent !border-0 !text-lg"
-            tileClassName="!bg-surface !text-white hover:!bg-gray-700 !text-base"
-          />
+      {/* Month Navigation */}
+      <div className="flex items-center justify-between bg-surface rounded-xl p-4 border border-gray-700">
+        <button
+          onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
+          className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <h3 className="text-xl font-bold">
+          {format(currentMonth, 'MMMM yyyy')}
+        </h3>
+        <button
+          onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
+          className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
+        >
+          <ChevronRight size={24} />
+        </button>
+      </div>
+
+      {/* Calendar Grid */}
+      <div className="bg-surface rounded-xl border border-gray-700 overflow-hidden">
+        {/* Week Day Headers */}
+        <div className="grid grid-cols-7 bg-gray-800 border-b border-gray-700">
+          {weekDays.map(day => (
+            <div key={day} className="p-3 text-center font-semibold text-sm text-gray-400">
+              {day}
+            </div>
+          ))}
         </div>
 
-        {/* Selected Date Tasks */}
-        <div className="bg-surface rounded-xl p-6 border border-gray-700">
-          <h3 className="text-xl font-semibold mb-4">
-            Tasks for {format(selectedDate, 'MMMM d, yyyy')}
-          </h3>
-          {selectedDateTodos.length === 0 ? (
-            <p className="text-muted text-center py-8">No tasks scheduled for this date</p>
-          ) : (
-            <div className="space-y-3">
-              {selectedDateTodos.map((todo) => (
-                <div
-                  key={todo._id || todo.id}
-                  onClick={() => setSelectedTodo(todo)}
-                  className={`flex items-center justify-between p-4 rounded-lg border cursor-pointer hover:border-gray-500 transition-all ${
-                    todo.completed
-                      ? 'border-gray-700 bg-gray-800/50'
-                      : todo.priority === 'high'
-                      ? 'border-red-500/30 bg-red-500/10'
-                      : todo.priority === 'medium'
-                      ? 'border-yellow-500/30 bg-yellow-500/10'
-                      : 'border-gray-700 bg-gray-800/50'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`w-3 h-3 rounded-full ${
-                        todo.completed
-                          ? 'bg-green-500'
-                          : todo.priority === 'high'
-                          ? 'bg-red-500'
-                          : todo.priority === 'medium'
-                          ? 'bg-yellow-500'
-                          : 'bg-blue-500'
-                      }`}
-                    />
-                    <span className={todo.completed ? 'line-through text-muted' : ''}>
-                      {todo.title}
-                    </span>
-                  </div>
-                  <span className={`text-xs px-2 py-1 rounded-full ${
-                    todo.priority === 'high' ? 'bg-red-500/20 text-red-400' :
-                    todo.priority === 'medium' ? 'bg-yellow-500/20 text-yellow-400' :
-                    'bg-blue-500/20 text-blue-400'
-                  }`}>
-                    {todo.priority}
-                  </span>
+        {/* Calendar Days */}
+        <div className="grid grid-cols-7 auto-rows-fr">
+          {calendarDays.map((day, index) => {
+            const dayTodos = getTodosForDate(day)
+            const isCurrentMonth = isSameMonth(day, currentMonth)
+            const isToday = isSameDay(day, new Date())
+
+            return (
+              <div
+                key={index}
+                className={`min-h-[120px] p-2 border-r border-b border-gray-700 last:border-r-0 ${
+                  !isCurrentMonth ? 'bg-gray-800/50 text-gray-500' : 'bg-surface'
+                } ${isToday ? 'ring-2 ring-primary ring-inset' : ''}`}
+              >
+                {/* Day Number */}
+                <div className={`text-sm font-semibold mb-1 ${isToday ? 'text-primary' : ''}`}>
+                  {getDate(day)}
                 </div>
-              ))}
-            </div>
-          )}
+
+                {/* Tasks */}
+                <div className="space-y-1">
+                  {dayTodos.slice(0, 3).map(todo => (
+                    <div
+                      key={todo._id || todo.id}
+                      onClick={() => setSelectedTodo(todo)}
+                      className={`text-xs p-1.5 rounded cursor-pointer truncate ${
+                        todo.completed
+                          ? 'bg-green-600 text-white'
+                          : todo.priority === 'high'
+                          ? 'bg-red-600 text-white'
+                          : todo.priority === 'medium'
+                          ? 'bg-yellow-600 text-white'
+                          : 'bg-blue-600 text-white'
+                      }`}
+                    >
+                      {todo.title}
+                    </div>
+                  ))}
+                  {dayTodos.length > 3 && (
+                    <div className="text-xs text-gray-400 text-center">
+                      +{dayTodos.length - 3} more
+                    </div>
+                  )}
+                </div>
+              </div>
+            )
+          })}
         </div>
       </div>
+
 
       {/* Task Details Modal */}
       {selectedTodo && (
@@ -386,7 +353,6 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
         </div>
       )}
     </div>
-    </>
   )
 }
 
