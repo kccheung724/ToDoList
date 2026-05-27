@@ -65,11 +65,11 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
       </div>
 
       {/* Calendar Grid */}
-      <div className="bg-surface rounded-xl border border-gray-700 overflow-hidden">
+      <div className="bg-white rounded-xl border border-gray-300 overflow-hidden">
         {/* Week Day Headers */}
-        <div className="grid grid-cols-7 bg-gray-800 border-b border-gray-700">
+        <div className="grid grid-cols-7 bg-gray-100 border-b border-gray-300">
           {weekDays.map(day => (
-            <div key={day} className="p-3 text-center font-semibold text-sm text-gray-400">
+            <div key={day} className="p-3 text-center font-semibold text-sm text-gray-600">
               {day}
             </div>
           ))}
@@ -85,8 +85,8 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
             return (
               <div
                 key={index}
-                className={`min-h-[140px] p-2 border-r border-b border-gray-700 last:border-r-0 ${
-                  !isCurrentMonth ? 'bg-gray-800/50 text-gray-500' : 'bg-surface'
+                className={`min-h-[140px] p-2 border-r border-b border-gray-300 last:border-r-0 ${
+                  !isCurrentMonth ? 'bg-gray-100 text-gray-400' : 'bg-white'
                 } ${isToday ? 'ring-2 ring-primary ring-inset' : ''}`}
               >
                 {/* Day Number */}
