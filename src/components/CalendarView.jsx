@@ -86,11 +86,11 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
               <div
                 key={index}
                 className={`min-h-[140px] p-2 border-r border-b border-gray-300 last:border-r-0 ${
-                  !isCurrentMonth ? 'bg-gray-100 text-gray-400' : 'bg-white'
+                  !isCurrentMonth ? 'bg-gray-100 text-black' : 'bg-white'
                 } ${isToday ? 'ring-2 ring-primary ring-inset' : ''}`}
               >
                 {/* Day Number */}
-                <div className={`text-sm font-semibold mb-1 ${isToday ? 'text-primary' : ''}`}>
+                <div className={`text-sm font-bold mb-1 ${isToday ? 'text-primary' : 'text-black'}`}>
                   {getDate(day)}
                 </div>
 
