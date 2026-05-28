@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
+import { useGroups } from './useGroups'
 
 export function useNotifications(currentUser, todos) {
+  const { getUserGroups, groups } = useGroups()
   const [notifications, setNotifications] = useState(() => {
     const saved = localStorage.getItem('notifications')
     if (saved) {
@@ -22,15 +24,26 @@ export function useNotifications(currentUser, todos) {
     const now = new Date()
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
 
-    // Check for new tasks assigned to current user
+    // Get user's groups
+    const userIds = [currentUser.id, currentUser._id].filter(Boolean)
+    const userGroups = userIds.flatMap(id => getUserGroups(id))
+    const groupIds = userGroups.flatMap(g => [g._id, g.id].filter(Boolean))
+
+    // Check if user can see task (direct assignment or group)
+    const canSeeTask = (todo) => {
+      const directAssignment = todo.assignedTo == currentUser.id || todo.assignedBy == currentUser.id
+      const groupAssignment = todo.assignedGroup && groupIds.includes(todo.assignedGroup)
+      return directAssignment || groupAssignment
+    }
+
+    // Check for new tasks assigned to current user or their group
     const newTasks = todos.filter(todo => 
-      todo.assignedTo == currentUser.id && 
+      canSeeTask(todo) &&
       todo.assignedBy != currentUser.id &&
       !notifications.some(n => n.type === 'new_task' && n.taskId == todo.id)
     )
 
     newTasks.forEach(task => {
-      const assignerName = todos.find(t => t.assignedBy === task.assignedBy)?.assignedByName || 'Someone'
       addNotification({
         id: Date.now() + Math.random(),
         type: 'new_task',
@@ -47,7 +60,7 @@ export function useNotifications(currentUser, todos) {
       if (!todo.dueDate || todo.completed) return false
       const dueDate = new Date(todo.dueDate)
       return dueDate.toDateString() === today.toDateString() &&
-             todo.assignedTo == currentUser.id &&
+             canSeeTask(todo) &&
              !notifications.some(n => n.type === 'due_today' && n.taskId == todo.id)
     })
 
@@ -72,7 +85,6 @@ export function useNotifications(currentUser, todos) {
     )
 
     completedByAssignee.forEach(task => {
-      const assigneeName = todos.find(t => t.assignedTo === task.assignedTo)?.assignedToName || 'Someone'
       addNotification({
         id: Date.now() + Math.random(),
         type: 'completed_by_assignee',
