@@ -114,6 +114,12 @@ function UserManagement() {
             <div>
               <p className="text-lg font-semibold">{currentUser.name}</p>
               {currentUser.email && <p className="text-sm text-muted">{currentUser.email}</p>}
+              {currentUser.group && (
+                <p className="text-sm text-muted flex items-center gap-1">
+                  <Users size={12} />
+                  {groups.find(g => g._id == currentUser.group || g.id == currentUser.group)?.name || currentUser.group}
+                </p>
+              )}
             </div>
             <button
               onClick={() => setCurrentUser(null)}
