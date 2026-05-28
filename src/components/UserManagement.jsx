@@ -263,14 +263,6 @@ function UserManagement() {
                     <Edit2 size={18} />
                   </button>
                 )}
-                {currentUser?.id !== (user._id || user.id) && (
-                  <button
-                    onClick={() => setCurrentUserById(user._id || user.id)}
-                    className="px-4 py-2 bg-primary/20 text-primary rounded-lg hover:bg-primary/30 transition-colors"
-                  >
-                    Set Current
-                  </button>
-                )}
                 {isAdmin() && currentUser?.id !== (user._id || user.id) && (
                   <button
                     onClick={() => {
