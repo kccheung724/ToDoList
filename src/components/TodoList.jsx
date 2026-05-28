@@ -97,10 +97,6 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
       alert('Title is required')
       return
     }
-    if (!description.trim()) {
-      alert('Description is required')
-      return
-    }
     if (!dueDate) {
       alert('Due Date is required')
       return
