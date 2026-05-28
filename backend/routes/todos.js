@@ -22,7 +22,10 @@ router.get('/', auth, async (req, res) => {
     const groupIds = memberOfGroups.flatMap(g => [g._id, g.id].filter(Boolean));
     
     const todos = allTodos.filter(t => {
-      const directMatch = t.assignedTo == userId || t.assignedBy == userId;
+      // Handle both id and _id formats for assignedTo and assignedBy
+      const assignedToMatch = t.assignedTo && userIds.includes(t.assignedTo);
+      const assignedByMatch = t.assignedBy && userIds.includes(t.assignedBy);
+      const directMatch = assignedToMatch || assignedByMatch;
       
       // Handle new assignedGroups array format
       let groupMatch = false;
