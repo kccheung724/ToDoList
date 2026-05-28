@@ -32,7 +32,7 @@ export function useUsers() {
 
   // Load users list
   const refreshUsers = async () => {
-    if (!currentUser || currentUser.role !== 'admin') return
+    if (!currentUser) return
     
     setLoading(true)
     setError(null)
@@ -47,9 +47,9 @@ export function useUsers() {
     }
   }
 
-  // Load users when current user is set and is admin
+  // Load users when current user is set
   useEffect(() => {
-    if (currentUser?.role === 'admin') {
+    if (currentUser) {
       refreshUsers()
     }
   }, [currentUser])
