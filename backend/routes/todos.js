@@ -110,7 +110,7 @@ router.get('/:id', auth, async (req, res) => {
 // Create todo
 router.post('/', auth, async (req, res) => {
   try {
-    const { title, description, remarks, priority, dueDate, assignedTo, assignedGroup, assignedGroups, attachments } = req.body;
+    const { title, subtitle, description, remarks, priority, dueDate, assignedTo, assignedGroup, assignedGroups, attachments } = req.body;
     
     console.log('Creating todo - Full request body:', JSON.stringify(req.body, null, 2));
     console.log('Creating todo:', { title, description, priority, dueDate, assignedTo, assignedGroup, assignedGroups, assignedBy: req.user.id });
@@ -128,6 +128,7 @@ router.post('/', auth, async (req, res) => {
     
     const todo = await createTodo({
       title,
+      subtitle,
       description,
       remarks,
       priority,
@@ -151,13 +152,14 @@ router.post('/', auth, async (req, res) => {
 // Update todo
 router.put('/:id', auth, async (req, res) => {
   try {
-    const { title, description, remarks, priority, dueDate, assignedTo, assignedGroup, assignedGroups, attachments, completed, completionRemarks } = req.body;
+    const { title, subtitle, description, remarks, priority, dueDate, assignedTo, assignedGroup, assignedGroups, attachments, completed, completionRemarks } = req.body;
     
     // Support both old format (assignedGroup) and new format (assignedGroups)
     const finalAssignedGroups = assignedGroups || (assignedGroup ? [assignedGroup] : null);
     
     const todo = await updateTodo(req.params.id, { 
       title, 
+      subtitle,
       description, 
       remarks, 
       priority, 

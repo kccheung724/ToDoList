@@ -5,6 +5,7 @@ import { useGroups } from '../hooks/useGroups'
 
 function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, updateTodo, deleteTodo, deleteAttachment, refreshTodos }) {
   const [title, setTitle] = useState('')
+  const [subtitle, setSubtitle] = useState('')
   const [description, setDescription] = useState('')
   const [remarks, setRemarks] = useState('')
   const [priority, setPriority] = useState('medium')
@@ -20,6 +21,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
   const [showCompletionRemarks, setShowCompletionRemarks] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
   const [editTitle, setEditTitle] = useState('')
+  const [editSubtitle, setEditSubtitle] = useState('')
   const [editDescription, setEditDescription] = useState('')
   const [editPriority, setEditPriority] = useState('medium')
   const [editDueDate, setEditDueDate] = useState('')
@@ -35,6 +37,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
   const startEdit = () => {
     if (selectedTodo) {
       setEditTitle(selectedTodo.title)
+      setEditSubtitle(selectedTodo.subtitle || '')
       setEditDescription(selectedTodo.description)
       setEditPriority(selectedTodo.priority)
       setEditDueDate(selectedTodo.dueDate)
@@ -63,6 +66,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
     if (selectedTodo) {
       await updateTodo(selectedTodo._id || selectedTodo.id, {
         title: editTitle,
+        subtitle: editSubtitle,
         description: editDescription,
         priority: editPriority,
         dueDate: editDueDate,
@@ -115,6 +119,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
     try {
       await addTodo({
         title: title.trim(),
+        subtitle: subtitle.trim(),
         description,
         remarks,
         priority,
@@ -126,6 +131,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
       })
       console.log('addTodo completed')
       setTitle('')
+      setSubtitle('')
       setDescription('')
       setRemarks('')
       setPriority('medium')
@@ -228,6 +234,16 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
               <Plus size={20} />
               Add Task
             </button>
+          </div>
+          
+          <div>
+            <input
+              type="text"
+              value={subtitle}
+              onChange={(e) => setSubtitle(e.target.value)}
+              placeholder="Subtitle (optional)..."
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-primary transition-colors"
+            />
           </div>
           
           <div>
@@ -603,6 +619,18 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                     />
                   </div>
 
+                  {/* Edit Subtitle */}
+                  <div>
+                    <h4 className="text-sm text-muted mb-1">Subtitle</h4>
+                    <input
+                      type="text"
+                      value={editSubtitle}
+                      onChange={(e) => setEditSubtitle(e.target.value)}
+                      placeholder="Subtitle (optional)..."
+                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
+                    />
+                  </div>
+
                   {/* Edit Description */}
                   <div>
                     <h4 className="text-sm text-muted mb-1">Description</h4>
@@ -718,6 +746,16 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                       {selectedTodo.title}
                     </p>
                   </div>
+
+                  {/* Subtitle */}
+                  {selectedTodo.subtitle && (
+                    <div>
+                      <h4 className="text-sm text-muted mb-1">Subtitle</h4>
+                      <p className="text-gray-300">
+                        {selectedTodo.subtitle}
+                      </p>
+                    </div>
+                  )}
 
                   {/* Status */}
                   <div>

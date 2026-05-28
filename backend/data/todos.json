@@ -28,32 +28,32 @@
     "_id": "mpnt3knysl5q3tflodi",
     "id": "mpnt3knyvt7yackghpf",
     "title": "8:30am - 10am Poundland - Becky, Vivian  (PL SH Sourcing office)",
-    "description": " 8:30am - 10am Poundland - Becky, Vivian  (PL SH Sourcing office)",
+    "description": "",
     "priority": "medium",
     "dueDate": "2026-05-28",
     "assignedTo": null,
     "assignedGroup": "all",
     "assignedBy": "mpdkioh6wdujlmyvu8n",
     "createdAt": "2026-05-27T08:32:46.174Z",
-    "updatedAt": "2026-05-28T07:30:12.949Z",
+    "updatedAt": "2026-05-28T09:10:42.149Z",
     "assignedGroups": [
       "all"
     ],
-    "completed": true,
-    "completedAt": "2026-05-28T07:30:12.943Z"
+    "completedAt": "2026-05-28T09:10:42.145Z",
+    "completed": true
   },
   {
     "_id": "mpntgk0zin9icavpgve",
     "id": "mpntgk0z5ol8bds72gd",
-    "title": "6:40pm-7:20pm D/T - Samantha McMichael,",
-    "description": "6:40pm-7:20pm D/T - Samantha McMichael,\nCaitlin Kilpatrick,Megan Mccarthy,\nAlexandra Wormet\n(Zoom - D54 Beauty & Eyewear)",
+    "title": "6:40pm-7:20pm D/T - Samantha McMichael, Caitlin Kilpatrick,Megan Mccarthy, Alexandra Wormet (Zoom - D54 Beauty & Eyewear)",
+    "description": "",
     "priority": "low",
     "dueDate": "2026-05-28",
     "assignedTo": null,
     "assignedGroup": "all",
     "assignedBy": "mpdkioh6wdujlmyvu8n",
     "createdAt": "2026-05-27T08:42:51.875Z",
-    "updatedAt": "2026-05-28T06:38:03.086Z",
+    "updatedAt": "2026-05-28T09:10:57.516Z",
     "assignedGroups": [
       "all"
     ]
@@ -91,22 +91,6 @@
     ]
   },
   {
-    "_id": "mpov190mrz6d9qtthle",
-    "id": "mpov190m57wtgktexjq",
-    "title": "test005",
-    "description": "test005",
-    "remarks": "",
-    "priority": "medium",
-    "dueDate": "2026-06-03",
-    "assignedTo": null,
-    "assignedGroup": "mpotuffrpyxi883yvb",
-    "attachments": [],
-    "assignedBy": "mpdkioh6wdujlmyvu8n",
-    "completed": false,
-    "createdAt": "2026-05-28T02:14:43.174Z",
-    "updatedAt": "2026-05-28T02:14:43.174Z"
-  },
-  {
     "_id": "mpoymuylt6iwezco9y",
     "id": "mpoymuylohnl7rbqopg",
     "title": "測試用0016",
@@ -125,8 +109,8 @@
   {
     "_id": "mpozlzmp0muo0ibkml5",
     "id": "mpozlzmpo3s6zuvgc9",
-    "title": "Deadline:Selected Samples for D/T - Holly Point ",
-    "description": "Deadline: Submit quote in GPS\n(D16 Checkout)",
+    "title": "Deadline:Selected Samples for D/T - Holly Point Deadline: Submit quote in GPS (D16 Checkout)",
+    "description": "",
     "priority": "medium",
     "dueDate": "2026-06-01",
     "assignedGroups": [
@@ -135,14 +119,14 @@
     "assignedGroup": "all",
     "assignedBy": "mpdkioh6wdujlmyvu8n",
     "createdAt": "2026-05-28T04:22:49.249Z",
-    "updatedAt": "2026-05-28T06:37:33.002Z",
+    "updatedAt": "2026-05-28T09:09:17.185Z",
     "assignedTo": null
   },
   {
     "_id": "mpoznf3l14nv63gbuf5",
     "id": "mpoznf3lwuvaw4irqeb",
-    "title": "Deadline: Rebuy Samples for D/T - Jessica Faber",
-    "description": "(D24 Party)",
+    "title": "Deadline: Rebuy Samples for D/T - Jessica Faber (D24 Party)",
+    "description": "",
     "priority": "medium",
     "dueDate": "2026-06-02",
     "assignedTo": null,
@@ -152,50 +136,13 @@
     "assignedGroup": "all",
     "assignedBy": "mpdkioh6wdujlmyvu8n",
     "createdAt": "2026-05-28T04:23:55.953Z",
-    "updatedAt": "2026-05-28T06:37:28.757Z"
-  },
-  {
-    "_id": "mpp04slvhelo1emu7f",
-    "id": "mpp04slvrhkdppnae",
-    "title": "test0016",
-    "description": "test0016",
-    "remarks": "test",
-    "priority": "medium",
-    "dueDate": "2026-06-05",
-    "assignedTo": null,
-    "assignedGroups": [
-      "all"
-    ],
-    "assignedGroup": "all",
-    "attachments": [],
-    "assignedBy": "mpdkioh6wdujlmyvu8n",
-    "completed": false,
-    "createdAt": "2026-05-28T04:37:26.611Z",
-    "updatedAt": "2026-05-28T04:37:26.611Z"
-  },
-  {
-    "_id": "mpp5wp812vgredrasgw",
-    "id": "mpp5wp8135e1b1p6k3c",
-    "title": "test0018",
-    "description": "test0018",
-    "remarks": "",
-    "priority": "medium",
-    "dueDate": "2026-06-02",
-    "assignedTo": "mpoy30rbqnh5db6zt4c",
-    "assignedGroups": null,
-    "assignedGroup": null,
-    "attachments": [],
-    "assignedBy": "mpdkioh6wdujlmyvu8n",
-    "completed": false,
-    "createdAt": "2026-05-28T07:19:06.673Z",
-    "updatedAt": "2026-05-28T07:19:06.673Z"
+    "updatedAt": "2026-05-28T09:08:03.300Z"
   },
   {
     "_id": "mpp8bhxpcxf6lweyco4",
     "id": "mpp8bhxpxjrtp9e3dfo",
     "title": "4pm Dollarama - Tom (Shantou) (Summer toys / Regular Toys)",
-    "description": "4pm Dollarama - Tom (Shantou)\n(Summer toys / Regular Toys)",
-    "remarks": "",
+    "description": "",
     "priority": "medium",
     "dueDate": "2026-06-05",
     "assignedTo": null,
@@ -203,18 +150,15 @@
       "all"
     ],
     "assignedGroup": "all",
-    "attachments": [],
     "assignedBy": "mpnuwakh19db3pc8w1j",
-    "completed": false,
     "createdAt": "2026-05-28T08:26:36.301Z",
-    "updatedAt": "2026-05-28T08:26:36.301Z"
+    "updatedAt": "2026-05-28T09:03:35.536Z"
   },
   {
     "_id": "mpp8cre6t5ygg414up",
     "id": "mpp8cre6dkaytin05ha",
     "title": "Tiger - Supplier Conference (Tiger SH office)",
-    "description": "Tiger - Supplier Conference\n(Tiger SH office)",
-    "remarks": "",
+    "description": "",
     "priority": "medium",
     "dueDate": "2026-06-09",
     "assignedTo": null,
@@ -222,11 +166,9 @@
       "all"
     ],
     "assignedGroup": "all",
-    "attachments": [],
     "assignedBy": "mpnuwakh19db3pc8w1j",
-    "completed": false,
     "createdAt": "2026-05-28T08:27:35.214Z",
-    "updatedAt": "2026-05-28T08:27:35.214Z"
+    "updatedAt": "2026-05-28T09:04:08.287Z"
   },
   {
     "_id": "mpp9cbng80rd789nf4d",
@@ -243,5 +185,24 @@
     "assignedBy": "mpnuwakh19db3pc8w1j",
     "createdAt": "2026-05-28T08:55:14.428Z",
     "updatedAt": "2026-05-28T08:55:56.944Z"
+  },
+  {
+    "_id": "mpp9ltc6048hgox301x4",
+    "id": "mpp9ltc6s4yen84b7ag",
+    "title": "Deadline: New and Rebuy Samples for D/T\n(D25 Party paper)\nDeadline: New samples for D/T\n(D70 Book, D85 Stationery)",
+    "description": "",
+    "remarks": "",
+    "priority": "medium",
+    "dueDate": "2026-06-12",
+    "assignedTo": null,
+    "assignedGroups": [
+      "all"
+    ],
+    "assignedGroup": "all",
+    "attachments": [],
+    "assignedBy": "mpnuwakh19db3pc8w1j",
+    "completed": false,
+    "createdAt": "2026-05-28T09:02:37.254Z",
+    "updatedAt": "2026-05-28T09:02:37.254Z"
   }
 ]
