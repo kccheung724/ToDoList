@@ -125,17 +125,6 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
       const userGroups = userIds.flatMap(id => getUserGroups(id))
       const groupIds = userGroups.flatMap(g => [g._id, g.id].filter(Boolean))
       const groupAssignment = todo.assignedGroup && groupIds.includes(todo.assignedGroup)
-      console.log('TodoList filter:', {
-        todoTitle: todo.title,
-        assignedGroup: todo.assignedGroup,
-        userIds,
-        currentUser,
-        userGroups: userGroups.map(g => g.name),
-        groupIds,
-        groupAssignment,
-        directAssignment,
-        filter
-      })
       if (!directAssignment && !groupAssignment) return false
     }
     // Then filter by status/priority

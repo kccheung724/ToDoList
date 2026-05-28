@@ -23,15 +23,6 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
         const userGroups = userIds.flatMap(id => getUserGroups(id))
         const groupIds = userGroups.flatMap(g => [g._id, g.id].filter(Boolean))
         const groupAssignment = todo.assignedGroup && groupIds.includes(todo.assignedGroup)
-        console.log('Task filter:', {
-          todoTitle: todo.title,
-          assignedGroup: todo.assignedGroup,
-          userIds,
-          userGroups: userGroups.map(g => g.name),
-          groupIds,
-          groupAssignment,
-          directAssignment
-        })
         return directAssignment || groupAssignment
       })
     : todos
