@@ -23,6 +23,9 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
   const [editDescription, setEditDescription] = useState('')
   const [editPriority, setEditPriority] = useState('medium')
   const [editDueDate, setEditDueDate] = useState('')
+  const [editAssignedTo, setEditAssignedTo] = useState('')
+  const [editAssignedGroups, setEditAssignedGroups] = useState([])
+  const [editAssignToAllGroups, setEditAssignToAllGroups] = useState(false)
 
   // Check if user can edit task (creator or admin)
   const canEditTask = (todo) => {
@@ -35,6 +38,23 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
       setEditDescription(selectedTodo.description)
       setEditPriority(selectedTodo.priority)
       setEditDueDate(selectedTodo.dueDate)
+      setEditAssignedTo(selectedTodo.assignedTo || '')
+      // Handle assignedGroups (new format) or assignedGroup (old format)
+      if (selectedTodo.assignedGroups) {
+        if (selectedTodo.assignedGroups.includes('all')) {
+          setEditAssignToAllGroups(true)
+          setEditAssignedGroups([])
+        } else {
+          setEditAssignToAllGroups(false)
+          setEditAssignedGroups(selectedTodo.assignedGroups)
+        }
+      } else if (selectedTodo.assignedGroup) {
+        setEditAssignToAllGroups(false)
+        setEditAssignedGroups([selectedTodo.assignedGroup])
+      } else {
+        setEditAssignToAllGroups(false)
+        setEditAssignedGroups([])
+      }
       setIsEditing(true)
     }
   }
@@ -45,7 +65,10 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
         title: editTitle,
         description: editDescription,
         priority: editPriority,
-        dueDate: editDueDate
+        dueDate: editDueDate,
+        assignedTo: editAssignedTo || null,
+        assignedGroups: editAssignToAllGroups ? ['all'] : (editAssignedGroups.length > 0 ? editAssignedGroups : null),
+        assignedGroup: editAssignToAllGroups ? null : (editAssignedGroups.length === 1 ? editAssignedGroups[0] : null)
       })
       setIsEditing(false)
       setSelectedTodo(null)
@@ -618,6 +641,60 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                       onChange={(e) => setEditDueDate(e.target.value)}
                       className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
                     />
+                  </div>
+
+                  {/* Edit Assign to User */}
+                  <div>
+                    <h4 className="text-sm text-muted mb-1">Assign to User</h4>
+                    <select
+                      value={editAssignedTo}
+                      onChange={(e) => setEditAssignedTo(e.target.value)}
+                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
+                    >
+                      <option value="">Unassigned</option>
+                      {users.sort((a, b) => a.name.localeCompare(b.name)).map(user => (
+                        <option key={user.id} value={user.id}>{user.name}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Edit Assign to Group */}
+                  <div>
+                    <h4 className="text-sm text-muted mb-1">Assign to Group</h4>
+                    <div className="bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 space-y-2">
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={editAssignToAllGroups}
+                          onChange={(e) => {
+                            setEditAssignToAllGroups(e.target.checked)
+                            if (e.target.checked) {
+                              setEditAssignedGroups([])
+                            }
+                          }}
+                          className="w-4 h-4 rounded border-gray-600 text-primary focus:ring-primary bg-gray-700"
+                        />
+                        <span className="text-white">All Groups</span>
+                      </label>
+                      {!editAssignToAllGroups && groups.sort((a, b) => a.name.localeCompare(b.name)).map(group => (
+                        <label key={group.id} className="flex items-center gap-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={editAssignedGroups.includes(group._id || group.id)}
+                            onChange={(e) => {
+                              const groupId = group._id || group.id
+                              if (e.target.checked) {
+                                setEditAssignedGroups([...editAssignedGroups, groupId])
+                              } else {
+                                setEditAssignedGroups(editAssignedGroups.filter(id => id !== groupId))
+                              }
+                            }}
+                            className="w-4 h-4 rounded border-gray-600 text-primary focus:ring-primary bg-gray-700"
+                          />
+                          <span className="text-white">{group.name}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
 
                   {/* Edit Buttons */}
