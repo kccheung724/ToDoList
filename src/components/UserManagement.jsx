@@ -54,7 +54,9 @@ function UserManagement() {
     setEditUsername(user.email || '')
     setEditEmail(user.emailAddress || '')
     setEditRole(user.role)
-    setEditGroup(user.group || '')
+    // Try to find the group by name (for backward compatibility) or by ID
+    const userGroup = user.group && groups.find(g => g._id === user.group || g.id === user.group || g.name === user.group)
+    setEditGroup(userGroup ? (userGroup._id || userGroup.id) : '')
     setEditPassword('')
     setEditError('')
   }
@@ -198,7 +200,7 @@ function UserManagement() {
             >
               <option value="">No Group</option>
               {groups.map((g) => (
-                <option key={g._id || g.id} value={g.name}>{g.name}</option>
+                <option key={g._id || g.id} value={g._id || g.id}>{g.name}</option>
               ))}
             </select>
           </div>
@@ -372,7 +374,7 @@ function UserManagement() {
                   >
                     <option value="">No Group</option>
                     {groups.map((g) => (
-                      <option key={g._id || g.id} value={g.name}>{g.name}</option>
+                      <option key={g._id || g.id} value={g._id || g.id}>{g.name}</option>
                     ))}
                   </select>
                 </div>

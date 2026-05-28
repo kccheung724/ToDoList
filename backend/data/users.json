@@ -86,5 +86,17 @@
     "group": "",
     "avatar": "https://ui-avatars.com/api/?name=Apple%20Li&background=random",
     "createdAt": "2026-05-28T03:20:54.470Z"
+  },
+  {
+    "_id": "mpoxz53o1hibg2wbb8v",
+    "id": "mpoxz53onlq1mqu68rp",
+    "name": "Rebecca Wong",
+    "email": "rebeccawong",
+    "emailAddress": "",
+    "password": "$2a$10$JJHSW0Td1GZfIjVvyOA7fOiYAC8mOoc9RyN4eU96DS2w7Qff43E1q",
+    "role": "user",
+    "group": "AM",
+    "avatar": "https://ui-avatars.com/api/?name=Rebecca%20Wong&background=random",
+    "createdAt": "2026-05-28T03:37:03.636Z"
   }
 ]
