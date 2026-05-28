@@ -288,7 +288,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                 className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
               >
                 <option value="">Unassigned</option>
-                {users.map(user => (
+                {users.sort((a, b) => a.name.localeCompare(b.name)).map(user => (
                   <option key={user.id} value={user.id}>{user.name}</option>
                 ))}
               </select>
@@ -310,7 +310,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                   />
                   <span className="text-white">All Groups</span>
                 </label>
-                {!assignToAllGroups && groups.map(group => (
+                {!assignToAllGroups && groups.sort((a, b) => a.name.localeCompare(b.name)).map(group => (
                   <label key={group.id} className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="checkbox"

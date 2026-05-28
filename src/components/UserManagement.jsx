@@ -228,7 +228,7 @@ function UserManagement() {
           <p className="text-muted text-center py-8">No users yet. Add your first user!</p>
         ) : (
           <div className="space-y-3">
-            {users.map((user) => (
+            {users.sort((a, b) => a.name.localeCompare(b.name)).map((user) => (
               <div
                 key={user._id || user.id}
                 className={`flex items-center gap-4 p-4 rounded-lg border transition-all ${
