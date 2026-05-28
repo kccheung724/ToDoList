@@ -22,20 +22,6 @@ function UserManagement() {
   useEffect(() => {
     refreshUsers()
   }, [])
-  
-  // Redirect or show error if not admin (must be after all hooks)
-  if (!isAdmin()) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-background">
-        <div className="text-center">
-          <Shield size={64} className="mx-auto mb-4 text-yellow-500" />
-          <h2 className="text-2xl font-bold mb-2">Access Denied</h2>
-          <p className="text-muted">You don't have permission to access User Management.</p>
-          <p className="text-muted text-sm mt-1">This page is only available to administrators.</p>
-        </div>
-      </div>
-    )
-  }
 
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')

@@ -34,11 +34,6 @@ function App() {
 
   // Filter views based on user role
   const filteredViews = views.filter(view => !view.adminOnly || currentUser?.role === 'admin')
-  
-  // Debug logging
-  console.log('User role:', currentUser?.role)
-  console.log('Is admin:', currentUser?.role === 'admin')
-  console.log('Filtered views:', filteredViews.map(v => v.id))
 
   // Show login page if not logged in
   if (!currentUser) {
