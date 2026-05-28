@@ -2,20 +2,19 @@
   {
     "_id": "mpnvf97ai4ho5lj816l",
     "id": "mpnvf97ap60ne5lt18",
+    "createdAt": "2026-05-27T09:37:50.422Z",
     "members": [
       "mpdq4x2sid61pksokc8",
       "mpdq6a9vywje6sad9hn",
       "mpdq5l9erc0zp8mhl5e"
-    ],
-    "createdAt": "2026-05-27T09:37:50.422Z"
+    ]
   },
   {
-    "_id": "mpnvfnb55vltqdipvpp",
-    "id": "mpnvfnb5woofh34ml6d",
-    "members": [
-      "mpnuwakhn3b2ovkr97",
-      "mpdr8wg42ipfoqmpy86"
-    ],
-    "createdAt": "2026-05-27T09:38:08.705Z"
+    "_id": "mpotld8jiyzo88b2zz",
+    "id": "mpotld8jdoagd5nis4",
+    "name": "AM",
+    "description": "AM",
+    "members": [],
+    "createdAt": "2026-05-28T01:34:22.531Z"
   }
 ]

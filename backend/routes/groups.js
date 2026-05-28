@@ -49,7 +49,11 @@ router.post('/', auth, async (req, res) => {
 router.put('/:id', auth, async (req, res) => {
   try {
     const { name, description, members } = req.body;
-    const group = await updateGroup(req.params.id, { name, description, members });
+    const updates = {};
+    if (name !== undefined) updates.name = name;
+    if (description !== undefined) updates.description = description;
+    if (members !== undefined) updates.members = members;
+    const group = await updateGroup(req.params.id, updates);
     
     if (!group) {
       return res.status(404).json({ message: 'Group not found' });
