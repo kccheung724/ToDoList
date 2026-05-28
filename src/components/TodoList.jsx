@@ -45,8 +45,15 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
       return
     }
     
-    // Date input already provides yyyy-mm-dd format, use it directly
-    const isoDate = dueDate
+    // Validate and convert date format from dd-mm-yyyy to yyyy-mm-dd
+    const dateRegex = /^(\d{2})-(\d{2})-(\d{4})$/
+    const match = dueDate.match(dateRegex)
+    if (!match) {
+      alert('Due Date must be in format dd-mm-yyyy (e.g., 28-05-2026)')
+      return
+    }
+    const [, day, month, year] = match
+    const isoDate = `${year}-${month}-${day}`
     
     try {
       await addTodo({
@@ -202,12 +209,34 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
             </div>
             <div className="flex-1">
               <label className="block text-sm text-muted mb-2">Due Date</label>
-              <input
-                type="date"
-                value={dueDate}
-                onChange={(e) => setDueDate(e.target.value)}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
-              />
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  placeholder="dd-mm-yyyy"
+                  value={dueDate}
+                  onChange={(e) => setDueDate(e.target.value)}
+                  pattern="\d{2}-\d{2}-\d{4}"
+                  className="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
+                />
+                <input
+                  type="date"
+                  id="datePicker"
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      const [year, month, day] = e.target.value.split('-')
+                      setDueDate(`${day}-${month}-${year}`)
+                    }
+                  }}
+                  className="hidden"
+                />
+                <button
+                  type="button"
+                  onClick={() => document.getElementById('datePicker').showPicker?.() || document.getElementById('datePicker').click()}
+                  className="px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white hover:bg-gray-600 transition-colors"
+                >
+                  <Calendar size={20} />
+                </button>
+              </div>
             </div>
           </div>
 
