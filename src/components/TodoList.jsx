@@ -67,7 +67,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('handleSubmit called', { title: title.trim(), description, priority, dueDate, assignedTo, assignedGroup, files })
+    console.log('handleSubmit called', { title: title.trim(), description, priority, dueDate, assignedTo, assignedGroups, assignToAllGroups, files })
     
     // Validation: Ensure all required fields are filled
     if (!title.trim()) {
