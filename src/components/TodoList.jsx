@@ -18,7 +18,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
   const [completionRemarks, setCompletionRemarks] = useState('')
   const [showCompletionRemarks, setShowCompletionRemarks] = useState(false)
   const { users, currentUser, refreshUsers } = useUsers()
-  const { groups } = useGroups()
+  const { groups, getUserGroups } = useGroups()
 
   // Refresh users from localStorage on mount
   useEffect(() => {
@@ -118,6 +118,15 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
   }
 
   const filteredTodos = todos.filter(todo => {
+    // First check if user can see the task (direct assignment or group)
+    if (currentUser) {
+      const directAssignment = todo.assignedTo == currentUser.id || todo.assignedBy == currentUser.id
+      const userGroups = getUserGroups(currentUser.id)
+      const groupIds = userGroups.map(g => g._id || g.id)
+      const groupAssignment = todo.assignedGroup && groupIds.includes(todo.assignedGroup)
+      if (!directAssignment && !groupAssignment) return false
+    }
+    // Then filter by status/priority
     if (filter === 'active') return !todo.completed
     if (filter === 'completed') return todo.completed
     if (filter === 'high') return !todo.completed && todo.priority === 'high'

@@ -95,5 +95,10 @@ export function useGroups() {
     await updateGroup(groupId, { members: updatedMembers })
   }
 
-  return { groups, addGroup, updateGroup, deleteGroup, addMemberToGroup, removeMemberFromGroup, refreshGroups, loading, error }
+  const getUserGroups = (userId) => {
+    if (!userId) return []
+    return groups.filter(group => (group.members || []).some(m => m == userId))
+  }
+
+  return { groups, addGroup, updateGroup, deleteGroup, addMemberToGroup, removeMemberFromGroup, refreshGroups, getUserGroups, loading, error }
 }

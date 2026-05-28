@@ -1,19 +1,29 @@
 import { useState } from 'react'
 import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay, addMonths, subMonths, getDate } from 'date-fns'
 import { useUsers } from '../hooks/useUsers'
+import { useGroups } from '../hooks/useGroups'
 import { CheckCircle2, Clock, X, Calendar as CalendarIcon, FileText, User, Users, ChevronLeft, ChevronRight } from 'lucide-react'
 
 function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
   const [currentMonth, setCurrentMonth] = useState(new Date())
   const [selectedTodo, setSelectedTodo] = useState(null)
   const [completionRemarks, setCompletionRemarks] = useState('')
-  const { users } = useUsers()
+  const { users, currentUser } = useUsers()
+  const { getUserGroups } = useGroups()
 
   // Get todos for a specific date
   const getTodosForDate = (date) => {
     return todos.filter(todo => {
       const todoDate = new Date(todo.dueDate || todo.createdAt)
-      return isSameDay(todoDate, date)
+      if (!isSameDay(todoDate, date)) return false
+      if (currentUser) {
+        const directAssignment = todo.assignedTo == currentUser.id || todo.assignedBy == currentUser.id
+        const userGroups = getUserGroups(currentUser.id)
+        const groupIds = userGroups.map(g => g._id || g.id)
+        const groupAssignment = todo.assignedGroup && groupIds.includes(todo.assignedGroup)
+        if (!directAssignment && !groupAssignment) return false
+      }
+      return true
     })
   }
 

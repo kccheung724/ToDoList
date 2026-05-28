@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { CheckCircle2, Clock, AlertCircle, TrendingUp, User, Users, X, Check, Calendar, FileText } from 'lucide-react'
 import { useUsers } from '../hooks/useUsers'
+import { useGroups } from '../hooks/useGroups'
 
 function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => {}, todos = [], toggleTodo, updateTodo, addAttachment }) {
   const { currentUser, users } = useUsers()
+  const { getUserGroups } = useGroups()
   const [showWelcome, setShowWelcome] = useState(true)
   const [showTaskList, setShowTaskList] = useState(false)
   const [showFilteredTasks, setShowFilteredTasks] = useState(false)
@@ -13,9 +15,15 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
   const [completionRemarks, setCompletionRemarks] = useState('')
   const [showCompletionRemarks, setShowCompletionRemarks] = useState(false)
 
-  // Filter todos for current user
+  // Filter todos for current user (including group assignments)
   const userTodos = currentUser 
-    ? todos.filter(todo => todo.assignedTo == currentUser.id || todo.assignedBy == currentUser.id)
+    ? todos.filter(todo => {
+        const directAssignment = todo.assignedTo == currentUser.id || todo.assignedBy == currentUser.id
+        const userGroups = getUserGroups(currentUser.id)
+        const groupIds = userGroups.map(g => g._id || g.id)
+        const groupAssignment = todo.assignedGroup && groupIds.includes(todo.assignedGroup)
+        return directAssignment || groupAssignment
+      })
     : todos
 
   const totalTodos = userTodos.length
