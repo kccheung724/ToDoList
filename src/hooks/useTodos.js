@@ -69,7 +69,8 @@ export function useTodos() {
         completed: false,
         attachments,
         assignedTo: todo.assignedTo || null,
-        assignedGroup: todo.assignedGroup || null,
+        assignedGroups: todo.assignedGroups || null,
+        assignedGroup: todo.assignedGroups && todo.assignedGroups.length === 1 ? todo.assignedGroups[0] : null,
         assignedBy: todo.assignedBy || null
       }
 
