@@ -10,6 +10,8 @@ router.get('/', auth, async (req, res) => {
     const userId = req.user.id; // Use id not _id for consistency with frontend
     const userGroups = await getGroups();
     
+    console.log('req.user:', req.user);
+    
     // Get groups the user is a member of
     const memberOfGroups = userGroups.filter(g => 
       g.members && g.members.some(m => m == userId || m == req.user._id)
