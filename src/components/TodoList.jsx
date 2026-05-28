@@ -29,7 +29,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
 
   // Check if user can edit task (creator or admin)
   const canEditTask = (todo) => {
-    return todo.assignedBy == currentUser?.id || currentUser?.role === 'admin'
+    return todo.assignedBy == currentUser?.id || todo.assignedBy == currentUser?._id || currentUser?.role === 'admin'
   }
 
   const startEdit = () => {
