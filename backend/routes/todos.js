@@ -116,10 +116,10 @@ router.post('/', auth, async (req, res) => {
     console.log('Creating todo:', { title, description, priority, dueDate, assignedTo, assignedGroup, assignedGroups, assignedBy: req.user.id });
     
     // Validation: Ensure required fields are present
-    if (!title || !description || !priority || !dueDate) {
+    if (!title || !priority || !dueDate) {
       console.error('Missing required fields:', { title, description, priority, dueDate });
       return res.status(400).json({ 
-        message: 'Missing required fields. Title, description, priority, and dueDate are required.' 
+        message: 'Missing required fields. Title, priority, and dueDate are required.' 
       });
     }
     
