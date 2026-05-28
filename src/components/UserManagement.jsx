@@ -114,12 +114,20 @@ function UserManagement() {
             <div>
               <p className="text-lg font-semibold">{currentUser.name}</p>
               {currentUser.email && <p className="text-sm text-muted">{currentUser.email}</p>}
-              {currentUser.group && (
-                <p className="text-sm text-muted flex items-center gap-1">
-                  <Users size={12} />
-                  {groups.find(g => g._id == currentUser.group || g.id == currentUser.group)?.name || currentUser.group}
-                </p>
-              )}
+              {(() => {
+                const userGroups = groups.filter(g => 
+                  g.members && g.members.some(m => m == currentUser._id || m == currentUser.id)
+                )
+                if (userGroups.length > 0) {
+                  return (
+                    <p className="text-sm text-muted flex items-center gap-1">
+                      <Users size={12} />
+                      {userGroups.map(g => g.name).join(', ')}
+                    </p>
+                  )
+                }
+                return null
+              })()}
             </div>
             <button
               onClick={() => setCurrentUser(null)}
@@ -248,12 +256,20 @@ function UserManagement() {
                       {user.email}
                     </p>
                   )}
-                  {user.group && (
-                    <p className="text-sm text-muted flex items-center gap-1">
-                      <Users size={12} />
-                      {groups.find(g => g._id == user.group || g.id == user.group)?.name || user.group}
-                    </p>
-                  )}
+                  {(() => {
+                    const userGroups = groups.filter(g => 
+                      g.members && g.members.some(m => m == user._id || m == user.id)
+                    )
+                    if (userGroups.length > 0) {
+                      return (
+                        <p className="text-sm text-muted flex items-center gap-1">
+                          <Users size={12} />
+                          {userGroups.map(g => g.name).join(', ')}
+                        </p>
+                      )
+                    }
+                    return null
+                  })()}
                 </div>
                 {isAdmin() && (
                   <button

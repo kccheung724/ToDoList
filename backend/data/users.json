@@ -74,5 +74,17 @@
     "group": "",
     "avatar": "https://ui-avatars.com/api/?name=Viva%20Chan&background=random",
     "createdAt": "2026-05-28T03:14:44.233Z"
+  },
+  {
+    "_id": "mpoxedaecp9j6qht20c",
+    "id": "mpoxedaegzopvxzm3qs",
+    "name": "Apple Li",
+    "email": "appleli",
+    "emailAddress": "",
+    "password": "$2a$10$5sZjpPIpDUs0TauzxsW3buxeY9om9PZ/va8kBDsoiq0UeRJSFGeyW",
+    "role": "user",
+    "group": "",
+    "avatar": "https://ui-avatars.com/api/?name=Apple%20Li&background=random",
+    "createdAt": "2026-05-28T03:20:54.470Z"
   }
 ]
