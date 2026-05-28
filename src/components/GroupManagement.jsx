@@ -4,12 +4,27 @@ import { useGroups } from '../hooks/useGroups'
 import { useUsers } from '../hooks/useUsers'
 
 function GroupManagement() {
+  const { isAdmin } = useUsers()
+  const { groups, addGroup, updateGroup, deleteGroup } = useGroups()
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [editingGroup, setEditingGroup] = useState(null)
+  
+  // Redirect or show error if not admin
+  if (!isAdmin()) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-background">
+        <div className="text-center">
+          <Users size={64} className="mx-auto mb-4 text-yellow-500" />
+          <h2 className="text-2xl font-bold mb-2">Access Denied</h2>
+          <p className="text-muted">You don't have permission to access Group Management.</p>
+          <p className="text-muted text-sm mt-1">This page is only available to administrators.</p>
+        </div>
+      </div>
+    )
+  }
   const [editName, setEditName] = useState('')
   const [editDescription, setEditDescription] = useState('')
-  const { groups, addGroup, updateGroup, deleteGroup, addMemberToGroup, removeMemberFromGroup } = useGroups()
   const { users } = useUsers()
 
   const handleAddGroup = (e) => {

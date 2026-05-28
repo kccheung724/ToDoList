@@ -28,9 +28,12 @@ function App() {
     { id: 'dashboard', name: 'Dashboard', icon: LayoutDashboard },
     { id: 'calendar', name: 'Calendar', icon: Calendar },
     { id: 'todos', name: 'Todo List', icon: CheckSquare2 },
-    { id: 'users', name: 'Users', icon: User },
-    { id: 'groups', name: 'Groups', icon: Users },
+    { id: 'users', name: 'Users', icon: User, adminOnly: true },
+    { id: 'groups', name: 'Groups', icon: Users, adminOnly: true },
   ]
+
+  // Filter views based on user role
+  const filteredViews = views.filter(view => !view.adminOnly || currentUser?.role === 'admin')
 
   // Show login page if not logged in
   if (!currentUser) {
@@ -53,7 +56,7 @@ function App() {
           </button>
         </div>
         <nav className="p-4 space-y-2">
-          {views.map((view) => {
+          {filteredViews.map((view) => {
             const Icon = view.icon
             return (
               <button
@@ -100,7 +103,7 @@ function App() {
         {/* Header with Notifications */}
         <header className="bg-surface border-b border-gray-700 p-4 flex items-center justify-between sticky top-0 z-40">
           <h1 className="text-xl font-bold">
-            {views.find(v => v.id === activeView)?.name || 'Dashboard'}
+            {filteredViews.find(v => v.id === activeView)?.name || 'Dashboard'}
           </h1>
           
           {/* Notification Bell - Top Right */}
