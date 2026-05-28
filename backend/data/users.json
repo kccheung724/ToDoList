@@ -98,5 +98,17 @@
     "group": "AM",
     "avatar": "https://ui-avatars.com/api/?name=Rebecca%20Wong&background=random",
     "createdAt": "2026-05-28T03:37:03.636Z"
+  },
+  {
+    "_id": "mpoy30rbhd33o8wia89",
+    "id": "mpoy30rbqnh5db6zt4c",
+    "name": "Kenny Chui",
+    "email": "kennychui",
+    "emailAddress": "",
+    "password": "$2a$10$7izcti9bnBsS4W.Y01M2beiPTxDGXEJcIjONbjMHRwuBv5q8XNCJ.",
+    "role": "user",
+    "group": "mpoy371mfcsqz4emu7u",
+    "avatar": "https://ui-avatars.com/api/?name=Kenny%20Chui&background=random",
+    "createdAt": "2026-05-28T03:40:04.631Z"
   }
 ]

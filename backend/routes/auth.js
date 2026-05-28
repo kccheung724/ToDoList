@@ -3,12 +3,12 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { auth } = require('../middleware/auth');
-const { findUserByEmail, createUser, findUserById } = require('../utils/storage');
+const { findUserByEmail, createUser, findUserById, getGroups, updateGroup } = require('../utils/storage');
 
 // Register
 router.post('/register', async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, group, emailAddress } = req.body;
 
     // Check if user already exists
     const existingUser = await findUserByEmail(email);
@@ -17,7 +17,29 @@ router.post('/register', async (req, res) => {
     }
 
     // Create user
-    const user = await createUser({ name, email, password, role: role || 'user' });
+    const user = await createUser({ 
+      name, 
+      email, 
+      password, 
+      role: role || 'user',
+      group: group || '',
+      emailAddress: emailAddress || ''
+    });
+
+    // Add user to group's members array if group is specified
+    if (group) {
+      const groups = await getGroups();
+      const userId = user._id || user.id;
+      const targetGroup = groups.find(g => g._id === group || g.id === group);
+      
+      if (targetGroup) {
+        if (!targetGroup.members) targetGroup.members = [];
+        if (!targetGroup.members.includes(userId) && !targetGroup.members.includes(user.id)) {
+          targetGroup.members.push(userId);
+          await updateGroup(targetGroup._id || targetGroup.id, { members: targetGroup.members });
+        }
+      }
+    }
 
     // Generate token
     const token = jwt.sign(
@@ -33,7 +55,8 @@ router.post('/register', async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
-        avatar: user.avatar
+        avatar: user.avatar,
+        group: user.group
       }
     });
   } catch (error) {

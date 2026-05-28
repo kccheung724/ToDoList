@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const { auth, adminAuth } = require('../middleware/auth');
-const { getUsers, findUserById, updateUser, deleteUser } = require('../utils/storage');
+const { getUsers, findUserById, updateUser, deleteUser, getGroups, updateGroup } = require('../utils/storage');
 
 // Get all users (admin only)
 router.get('/', auth, adminAuth, async (req, res) => {
@@ -51,10 +51,45 @@ router.put('/:id', auth, adminAuth, async (req, res) => {
       updates.password = await bcrypt.hash(password, 10);
     }
     
+    // Get current user to check if group changed
+    const currentUser = await findUserById(req.params.id);
+    if (!currentUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    const oldGroupId = currentUser.group;
+    const newGroupId = group;
+    
+    // Update user
     const user = await updateUser(req.params.id, updates);
     
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
+    }
+    
+    // Sync group membership: add/remove user from group members arrays
+    const groups = await getGroups();
+    const userId = user._id || user.id;
+    
+    // Remove user from old group's members array if group changed
+    if (oldGroupId && oldGroupId !== newGroupId) {
+      const oldGroup = groups.find(g => g._id === oldGroupId || g.id === oldGroupId);
+      if (oldGroup && oldGroup.members) {
+        oldGroup.members = oldGroup.members.filter(m => m !== userId && m !== user.id);
+        await updateGroup(oldGroup._id || oldGroup.id, { members: oldGroup.members });
+      }
+    }
+    
+    // Add user to new group's members array if group changed and new group exists
+    if (newGroupId && newGroupId !== oldGroupId) {
+      const newGroup = groups.find(g => g._id === newGroupId || g.id === newGroupId);
+      if (newGroup) {
+        if (!newGroup.members) newGroup.members = [];
+        if (!newGroup.members.includes(userId) && !newGroup.members.includes(user.id)) {
+          newGroup.members.push(userId);
+          await updateGroup(newGroup._id || newGroup.id, { members: newGroup.members });
+        }
+      }
     }
     
     // Remove password from response
