@@ -1,24 +1,30 @@
 const express = require('express');
 const router = express.Router();
 const { auth } = require('../middleware/auth');
-const { getTodos, findTodoById, createTodo, updateTodo, deleteTodo, getGroups } = require('../utils/storage');
+const { getTodos, findTodoById, createTodo, updateTodo, deleteTodo, getGroups, getUsers } = require('../utils/storage');
 
 // Get all todos for current user
 router.get('/', auth, async (req, res) => {
   try {
     const allTodos = await getTodos();
-    const userId = req.user.id; // Use id not _id for consistency with frontend
+    const userId = req.user.id;
     const userGroups = await getGroups();
+    const allUsers = await getUsers();
+    
+    // Find current user to get both id and _id
+    const currentUser = allUsers.find(u => u.id == userId || u._id == userId);
+    const userIds = [userId, currentUser?._id].filter(Boolean);
     
     console.log('req.user:', req.user);
+    console.log('currentUser:', currentUser);
     
     // Get groups the user is a member of
     const memberOfGroups = userGroups.filter(g => 
-      g.members && g.members.some(m => m == userId || m == req.user._id)
+      g.members && g.members.some(m => userIds.includes(m))
     );
     const groupIds = memberOfGroups.flatMap(g => [g._id, g.id].filter(Boolean));
     
-    console.log('Fetching todos for user:', userId, 'Total todos:', allTodos.length);
+    console.log('Fetching todos for user:', userId, 'User IDs:', userIds, 'Total todos:', allTodos.length);
     console.log('User groups:', memberOfGroups.map(g => g.name), 'Group IDs:', groupIds);
     
     const todos = allTodos.filter(t => {
