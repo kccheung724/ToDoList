@@ -122,7 +122,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
     if (currentUser) {
       const directAssignment = todo.assignedTo == currentUser.id || todo.assignedBy == currentUser.id
       const userGroups = getUserGroups(currentUser.id)
-      const groupIds = userGroups.map(g => g._id || g.id)
+      const groupIds = userGroups.flatMap(g => [g._id, g.id].filter(Boolean))
       const groupAssignment = todo.assignedGroup && groupIds.includes(todo.assignedGroup)
       if (!directAssignment && !groupAssignment) return false
     }
