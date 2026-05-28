@@ -526,9 +526,10 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                 {!isEditing && canEditTask(selectedTodo) && (
                   <button
                     onClick={startEdit}
-                    className="p-2 text-blue-400 hover:bg-blue-500/20 rounded-lg transition-all"
+                    className="px-4 py-2 text-blue-400 hover:bg-blue-500/20 rounded-lg transition-all flex items-center gap-2"
                   >
                     <FileText size={20} />
+                    Edit Task
                   </button>
                 )}
                 <button
