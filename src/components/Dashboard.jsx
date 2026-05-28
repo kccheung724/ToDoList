@@ -19,7 +19,8 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
   const userTodos = currentUser 
     ? todos.filter(todo => {
         const directAssignment = todo.assignedTo == currentUser.id || todo.assignedBy == currentUser.id
-        const userGroups = getUserGroups(currentUser.id)
+        const userIds = [currentUser.id, currentUser._id].filter(Boolean)
+        const userGroups = userIds.flatMap(id => getUserGroups(id))
         const groupIds = userGroups.flatMap(g => [g._id, g.id].filter(Boolean))
         const groupAssignment = todo.assignedGroup && groupIds.includes(todo.assignedGroup)
         return directAssignment || groupAssignment

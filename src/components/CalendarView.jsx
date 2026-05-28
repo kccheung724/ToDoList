@@ -18,7 +18,8 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
       if (!isSameDay(todoDate, date)) return false
       if (currentUser) {
         const directAssignment = todo.assignedTo == currentUser.id || todo.assignedBy == currentUser.id
-        const userGroups = getUserGroups(currentUser.id)
+        const userIds = [currentUser.id, currentUser._id].filter(Boolean)
+        const userGroups = userIds.flatMap(id => getUserGroups(id))
         const groupIds = userGroups.flatMap(g => [g._id, g.id].filter(Boolean))
         const groupAssignment = todo.assignedGroup && groupIds.includes(todo.assignedGroup)
         if (!directAssignment && !groupAssignment) return false
