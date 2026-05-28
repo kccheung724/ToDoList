@@ -4,13 +4,15 @@ import { useGroups } from '../hooks/useGroups'
 import { useUsers } from '../hooks/useUsers'
 
 function GroupManagement() {
-  const { isAdmin } = useUsers()
+  const { isAdmin, users } = useUsers()
   const { groups, addGroup, updateGroup, deleteGroup } = useGroups()
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [editingGroup, setEditingGroup] = useState(null)
+  const [editName, setEditName] = useState('')
+  const [editDescription, setEditDescription] = useState('')
   
-  // Redirect or show error if not admin
+  // Redirect or show error if not admin (must be after all hooks)
   if (!isAdmin()) {
     return (
       <div className="flex items-center justify-center h-screen bg-background">
@@ -23,9 +25,6 @@ function GroupManagement() {
       </div>
     )
   }
-  const [editName, setEditName] = useState('')
-  const [editDescription, setEditDescription] = useState('')
-  const { users } = useUsers()
 
   const handleAddGroup = (e) => {
     e.preventDefault()
