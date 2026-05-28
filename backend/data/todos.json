@@ -153,5 +153,35 @@
     "completed": false,
     "createdAt": "2026-05-28T03:55:30.237Z",
     "updatedAt": "2026-05-28T03:55:30.237Z"
+  },
+  {
+    "_id": "mpozlzmp0muo0ibkml5",
+    "id": "mpozlzmpo3s6zuvgc9",
+    "title": "Deadline:Selected Samples for D/T - Holly Point ",
+    "description": "Deadline: Submit quote in GPS\n(D16 Checkout)",
+    "priority": "medium",
+    "dueDate": "2026-06-01",
+    "assignedGroups": null,
+    "assignedGroup": null,
+    "assignedBy": "mpdkioh6wdujlmyvu8n",
+    "createdAt": "2026-05-28T04:22:49.249Z",
+    "updatedAt": "2026-05-28T04:24:57.096Z"
+  },
+  {
+    "_id": "mpoznf3l14nv63gbuf5",
+    "id": "mpoznf3lwuvaw4irqeb",
+    "title": "Deadline: Rebuy Samples for D/T - Jessica Faber",
+    "description": "(D24 Party)",
+    "remarks": "",
+    "priority": "medium",
+    "dueDate": "2026-06-02",
+    "assignedTo": null,
+    "assignedGroups": null,
+    "assignedGroup": null,
+    "attachments": [],
+    "assignedBy": "mpdkioh6wdujlmyvu8n",
+    "completed": false,
+    "createdAt": "2026-05-28T04:23:55.953Z",
+    "updatedAt": "2026-05-28T04:23:55.953Z"
   }
 ]

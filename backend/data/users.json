@@ -122,5 +122,17 @@
     "group": "mpoy371mfcsqz4emu7u",
     "avatar": "https://ui-avatars.com/api/?name=Wilson%20Wong&background=random",
     "createdAt": "2026-05-28T03:48:52.840Z"
+  },
+  {
+    "_id": "mpoztebpj73onjrmb2h",
+    "id": "mpoztebpindioo3vy8h",
+    "name": "Gladys Lee",
+    "email": "gladyslee",
+    "emailAddress": "gladyslee@simplesymbol.com",
+    "password": "$2a$10$yeHCgnEYiR86a7FM41mmiuVajJqMleaGkZnS3is2/5e46O6bEGxUa",
+    "role": "user",
+    "group": "mpozstl7biixgmmgd8",
+    "avatar": "https://ui-avatars.com/api/?name=Gladys%20Lee&background=random",
+    "createdAt": "2026-05-28T04:28:34.885Z"
   }
 ]

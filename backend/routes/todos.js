@@ -39,6 +39,12 @@ router.get('/', auth, async (req, res) => {
         groupMatch = groupIds.includes(t.assignedGroup);
       }
       
+      // If task is assigned to "all", show it to everyone regardless of group membership
+      // Otherwise, require direct assignment or group membership
+      if (t.assignedGroups && t.assignedGroups.includes('all')) {
+        return true;
+      }
+      
       return directMatch || groupMatch;
     });
     res.json(todos);
