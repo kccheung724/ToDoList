@@ -50,7 +50,19 @@ router.get('/', auth, async (req, res) => {
       
       return directMatch || groupMatch;
     });
-    res.json(todos);
+    
+    // Populate user names in todos
+    const todosWithUserNames = todos.map(t => {
+      const assignedToUser = t.assignedTo ? allUsers.find(u => u.id == t.assignedTo || u._id == t.assignedTo) : null;
+      const assignedByUser = t.assignedBy ? allUsers.find(u => u.id == t.assignedBy || u._id == t.assignedBy) : null;
+      return {
+        ...t,
+        assignedUserName: assignedToUser?.name || null,
+        assignedByUserName: assignedByUser?.name || null
+      };
+    });
+    
+    res.json(todosWithUserNames);
   } catch (error) {
     console.error('Fetch todos error:', error);
     res.status(500).json({ message: 'Error fetching todos' });

@@ -792,11 +792,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                       <h4 className="text-sm text-muted mb-1">Assigned By</h4>
                       <p className="text-gray-300 flex items-center gap-2">
                         <User size={16} />
-                        {(() => {
-                          const foundUser = users.find(u => u.id == selectedTodo.assignedBy || u._id == selectedTodo.assignedBy);
-                          console.log('AssignedBy lookup:', { assignedBy: selectedTodo.assignedBy, foundUser: foundUser?.name, usersCount: users.length });
-                          return foundUser?.name || 'Unknown';
-                        })()}
+                        {selectedTodo.assignedByUserName || 'Unknown'}
                       </p>
                     </div>
                   )}
@@ -807,11 +803,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                       <h4 className="text-sm text-muted mb-1">Assigned To</h4>
                       <p className="text-gray-300 flex items-center gap-2">
                         <Users size={16} />
-                        {selectedTodo.assignedTo && (() => {
-                          const foundUser = users.find(u => u.id == selectedTodo.assignedTo || u._id == selectedTodo.assignedTo);
-                          console.log('AssignedTo lookup:', { assignedTo: selectedTodo.assignedTo, foundUser: foundUser?.name, usersCount: users.length });
-                          return foundUser?.name;
-                        })()}
+                        {selectedTodo.assignedTo && selectedTodo.assignedUserName}
                         {selectedTodo.assignedTo && (selectedTodo.assignedGroups || selectedTodo.assignedGroup) && ' / '}
                         {(selectedTodo.assignedGroups && selectedTodo.assignedGroups.includes('all')) && (
                           <span className="text-yellow-400">All Groups</span>

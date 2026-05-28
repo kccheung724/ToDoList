@@ -664,7 +664,7 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                       <h4 className="text-sm text-muted mb-1">Assigned By</h4>
                       <p className="text-gray-300 flex items-center gap-2">
                         <User size={16} />
-                        {users.find(u => u.id === selectedTodo.assignedBy || u._id === selectedTodo.assignedBy)?.name || 'Unknown'}
+                        {selectedTodo.assignedByUserName || 'Unknown'}
                       </p>
                     </div>
                   )}
@@ -675,7 +675,7 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                       <h4 className="text-sm text-muted mb-1">Assigned To</h4>
                       <p className="text-gray-300 flex items-center gap-2">
                         <Users size={16} />
-                        {selectedTodo.assignedTo && users.find(u => u.id === selectedTodo.assignedTo || u._id === selectedTodo.assignedTo)?.name}
+                        {selectedTodo.assignedTo && selectedTodo.assignedUserName}
                         {selectedTodo.assignedTo && (selectedTodo.assignedGroups || selectedTodo.assignedGroup) && ' / '}
                         {(selectedTodo.assignedGroups && selectedTodo.assignedGroups.includes('all')) && (
                           <span className="text-yellow-400">All Groups</span>
