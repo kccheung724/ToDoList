@@ -71,24 +71,35 @@ router.put('/:id', auth, adminAuth, async (req, res) => {
     const groups = await getGroups();
     const userId = user._id || user.id;
     
+    console.log('User group sync:', { userId, oldGroupId, newGroupId });
+    console.log('Available groups:', groups.map(g => ({ id: g._id, name: g.name })));
+    
     // Remove user from old group's members array if group changed
     if (oldGroupId && oldGroupId !== newGroupId) {
       const oldGroup = groups.find(g => g._id === oldGroupId || g.id === oldGroupId);
+      console.log('Removing from old group:', { oldGroupId, oldGroup: oldGroup?.name });
       if (oldGroup && oldGroup.members) {
         oldGroup.members = oldGroup.members.filter(m => m !== userId && m !== user.id);
         await updateGroup(oldGroup._id || oldGroup.id, { members: oldGroup.members });
       }
     }
     
-    // Add user to new group's members array if group changed and new group exists
+    // Add user to new group's members array if new group exists
+    // (add if group changed OR if user has no previous group but is being assigned to one)
     if (newGroupId && newGroupId !== oldGroupId) {
       const newGroup = groups.find(g => g._id === newGroupId || g.id === newGroupId);
+      console.log('Adding to new group:', { newGroupId, newGroup: newGroup?.name });
       if (newGroup) {
         if (!newGroup.members) newGroup.members = [];
         if (!newGroup.members.includes(userId) && !newGroup.members.includes(user.id)) {
           newGroup.members.push(userId);
           await updateGroup(newGroup._id || newGroup.id, { members: newGroup.members });
+          console.log('Added user to group members array');
+        } else {
+          console.log('User already in group members array');
         }
+      } else {
+        console.log('Group not found with ID:', newGroupId);
       }
     }
     
