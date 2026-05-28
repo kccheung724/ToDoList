@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Plus, Trash2, User, UserCheck, Mail, Shield, Lock, Edit2, X } from 'lucide-react'
+import { Plus, Trash2, User, UserCheck, Mail, Shield, Lock, Edit2, X, Users } from 'lucide-react'
 import { useUsers } from '../hooks/useUsers'
 import { useGroups } from '../hooks/useGroups'
 
@@ -240,6 +240,12 @@ function UserManagement() {
                     <p className="text-sm text-muted flex items-center gap-1">
                       <Mail size={12} />
                       {user.email}
+                    </p>
+                  )}
+                  {user.group && (
+                    <p className="text-sm text-muted flex items-center gap-1">
+                      <Users size={12} />
+                      {groups.find(g => g._id == user.group || g.id == user.group)?.name || user.group}
                     </p>
                   )}
                 </div>

@@ -62,5 +62,17 @@
     "group": "",
     "avatar": "https://ui-avatars.com/api/?name=Celia%20Chan&background=random",
     "createdAt": "2026-05-27T09:23:05.731Z"
+  },
+  {
+    "_id": "mpox6flyd40l0lk4tfp",
+    "id": "mpox6flyybfxiqohqem",
+    "name": "Viva Chan",
+    "email": "vivachan",
+    "emailAddress": "",
+    "password": "$2a$10$Hq9st0M9b8qHZlBBnqND5u8Ger/UQV4TIpsuShBF6moL3ejhxgo4u",
+    "role": "user",
+    "group": "",
+    "avatar": "https://ui-avatars.com/api/?name=Viva%20Chan&background=random",
+    "createdAt": "2026-05-28T03:14:44.233Z"
   }
 ]
