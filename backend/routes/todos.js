@@ -1,17 +1,29 @@
 const express = require('express');
 const router = express.Router();
 const { auth } = require('../middleware/auth');
-const { getTodos, findTodoById, createTodo, updateTodo, deleteTodo } = require('../utils/storage');
+const { getTodos, findTodoById, createTodo, updateTodo, deleteTodo, getGroups } = require('../utils/storage');
 
 // Get all todos for current user
 router.get('/', auth, async (req, res) => {
   try {
     const allTodos = await getTodos();
     const userId = req.user.id; // Use id not _id for consistency with frontend
+    const userGroups = await getGroups();
+    
+    // Get groups the user is a member of
+    const memberOfGroups = userGroups.filter(g => 
+      g.members && g.members.some(m => m == userId || m == req.user._id)
+    );
+    const groupIds = memberOfGroups.flatMap(g => [g._id, g.id].filter(Boolean));
+    
     console.log('Fetching todos for user:', userId, 'Total todos:', allTodos.length);
+    console.log('User groups:', memberOfGroups.map(g => g.name), 'Group IDs:', groupIds);
+    
     const todos = allTodos.filter(t => {
-      const match = t.assignedTo == userId || t.assignedBy == userId;
-      if (match) console.log('Matched todo:', t._id, 'assignedTo:', t.assignedTo, 'assignedBy:', t.assignedBy);
+      const directMatch = t.assignedTo == userId || t.assignedBy == userId;
+      const groupMatch = t.assignedGroup && groupIds.includes(t.assignedGroup);
+      const match = directMatch || groupMatch;
+      if (match && t.assignedGroup) console.log('Matched todo:', t._id, 'assignedGroup:', t.assignedGroup, 'directMatch:', directMatch, 'groupMatch:', groupMatch);
       return match;
     });
     console.log('Returning todos:', todos.length);
