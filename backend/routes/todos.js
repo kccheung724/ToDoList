@@ -55,10 +55,26 @@ router.get('/', auth, async (req, res) => {
     const todosWithUserNames = todos.map(t => {
       const assignedToUser = t.assignedTo ? allUsers.find(u => u.id == t.assignedTo || u._id == t.assignedTo) : null;
       const assignedByUser = t.assignedBy ? allUsers.find(u => u.id == t.assignedBy || u._id == t.assignedBy) : null;
+      
+      // Populate group names
+      let assignedGroupNames = [];
+      if (t.assignedGroups && t.assignedGroups.includes('all')) {
+        assignedGroupNames = ['All Groups'];
+      } else if (t.assignedGroups) {
+        assignedGroupNames = t.assignedGroups.map(groupId => {
+          const group = userGroups.find(g => g._id == groupId || g.id == groupId);
+          return group ? group.name : null;
+        }).filter(Boolean);
+      } else if (t.assignedGroup) {
+        const group = userGroups.find(g => g._id == t.assignedGroup || g.id == t.assignedGroup);
+        if (group) assignedGroupNames = [group.name];
+      }
+      
       return {
         ...t,
         assignedUserName: assignedToUser?.name || null,
-        assignedByUserName: assignedByUser?.name || null
+        assignedByUserName: assignedByUser?.name || null,
+        assignedGroupNames
       };
     });
     
