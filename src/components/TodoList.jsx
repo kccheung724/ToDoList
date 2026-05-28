@@ -10,7 +10,8 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
   const [priority, setPriority] = useState('medium')
   const [dueDate, setDueDate] = useState('')
   const [assignedTo, setAssignedTo] = useState('')
-  const [assignedGroup, setAssignedGroup] = useState('')
+  const [assignedGroups, setAssignedGroups] = useState([])
+  const [assignToAllGroups, setAssignToAllGroups] = useState(false)
   const [files, setFiles] = useState([])
   const [filter, setFilter] = useState(initialFilter)
   const [expandedTodo, setExpandedTodo] = useState(null)
@@ -100,7 +101,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
         priority,
         dueDate: isoDate,
         assignedTo: assignedTo || null,
-        assignedGroup: assignedGroup || null,
+        assignedGroups: assignToAllGroups ? ['all'] : (assignedGroups.length > 0 ? assignedGroups : null),
         assignedBy: currentUser?.id || null,
         files,
       })
@@ -111,7 +112,8 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
       setPriority('medium')
       setDueDate('')
       setAssignedTo('')
-      setAssignedGroup('')
+      setAssignedGroups([])
+      setAssignToAllGroups(false)
       setFiles([])
     } catch (error) {
       console.error('Failed to create task:', error)
@@ -293,16 +295,40 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
             </div>
             <div className="flex-1">
               <label className="block text-sm text-muted mb-2">Assign to Group</label>
-              <select
-                value={assignedGroup}
-                onChange={(e) => setAssignedGroup(e.target.value)}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
-              >
-                <option value="">No Group</option>
-                {groups.map(group => (
-                  <option key={group.id} value={group.id}>{group.name}</option>
+              <div className="bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 space-y-2">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={assignToAllGroups}
+                    onChange={(e) => {
+                      setAssignToAllGroups(e.target.checked)
+                      if (e.target.checked) {
+                        setAssignedGroups([])
+                      }
+                    }}
+                    className="w-4 h-4 rounded border-gray-600 text-primary focus:ring-primary bg-gray-700"
+                  />
+                  <span className="text-white">All Groups</span>
+                </label>
+                {!assignToAllGroups && groups.map(group => (
+                  <label key={group.id} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={assignedGroups.includes(group._id || group.id)}
+                      onChange={(e) => {
+                        const groupId = group._id || group.id
+                        if (e.target.checked) {
+                          setAssignedGroups([...assignedGroups, groupId])
+                        } else {
+                          setAssignedGroups(assignedGroups.filter(id => id !== groupId))
+                        }
+                      }}
+                      className="w-4 h-4 rounded border-gray-600 text-primary focus:ring-primary bg-gray-700"
+                    />
+                    <span className="text-white">{group.name}</span>
+                  </label>
                 ))}
-              </select>
+              </div>
             </div>
           </div>
 
@@ -695,14 +721,25 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                   )}
 
                   {/* Assigned To */}
-                  {(selectedTodo.assignedTo || selectedTodo.assignedGroup) && (
+                  {(selectedTodo.assignedTo || selectedTodo.assignedGroups || selectedTodo.assignedGroup) && (
                     <div>
                       <h4 className="text-sm text-muted mb-1">Assigned To</h4>
                       <p className="text-gray-300 flex items-center gap-2">
                         <Users size={16} />
                         {selectedTodo.assignedTo && users.find(u => u.id == selectedTodo.assignedTo)?.name}
-                        {selectedTodo.assignedTo && selectedTodo.assignedGroup && ' / '}
-                        {selectedTodo.assignedGroup && groups.find(g => g._id == selectedTodo.assignedGroup || g.id == selectedTodo.assignedGroup)?.name}
+                        {selectedTodo.assignedTo && (selectedTodo.assignedGroups || selectedTodo.assignedGroup) && ' / '}
+                        {(selectedTodo.assignedGroups && selectedTodo.assignedGroups.includes('all')) && (
+                          <span className="text-yellow-400">All Groups</span>
+                        )}
+                        {(selectedTodo.assignedGroups && !selectedTodo.assignedGroups.includes('all')) && selectedTodo.assignedGroups.map((groupId, idx) => {
+                          const group = groups.find(g => g._id == groupId || g.id == groupId)
+                          return group ? (
+                            <span key={groupId}>
+                              {idx > 0 && ', '}{group.name}
+                            </span>
+                          ) : null
+                        })}
+                        {(!selectedTodo.assignedGroups && selectedTodo.assignedGroup) && groups.find(g => g._id == selectedTodo.assignedGroup || g.id == selectedTodo.assignedGroup)?.name}
                       </p>
                     </div>
                   )}

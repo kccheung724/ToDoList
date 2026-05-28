@@ -345,14 +345,25 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
                   )}
 
                   {/* Assigned To */}
-                  {(selectedTodo.assignedTo || selectedTodo.assignedGroup) && (
+                  {(selectedTodo.assignedTo || selectedTodo.assignedGroups || selectedTodo.assignedGroup) && (
                     <div>
                       <h4 className="text-sm text-muted mb-1">Assigned To</h4>
                       <p className="text-gray-300 flex items-center gap-2">
                         <Users size={16} />
                         {selectedTodo.assignedTo && users.find(u => u.id === selectedTodo.assignedTo)?.name}
-                        {selectedTodo.assignedTo && selectedTodo.assignedGroup && ' / '}
-                        {selectedTodo.assignedGroup && groups.find(g => g._id === selectedTodo.assignedGroup || g.id === selectedTodo.assignedGroup)?.name}
+                        {selectedTodo.assignedTo && (selectedTodo.assignedGroups || selectedTodo.assignedGroup) && ' / '}
+                        {(selectedTodo.assignedGroups && selectedTodo.assignedGroups.includes('all')) && (
+                          <span className="text-yellow-400">All Groups</span>
+                        )}
+                        {(selectedTodo.assignedGroups && !selectedTodo.assignedGroups.includes('all')) && selectedTodo.assignedGroups.map((groupId, idx) => {
+                          const group = groups.find(g => g._id === groupId || g.id === groupId)
+                          return group ? (
+                            <span key={groupId}>
+                              {idx > 0 && ', '}{group.name}
+                            </span>
+                          ) : null
+                        })}
+                        {(!selectedTodo.assignedGroups && selectedTodo.assignedGroup) && groups.find(g => g._id === selectedTodo.assignedGroup || g.id === selectedTodo.assignedGroup)?.name}
                       </p>
                     </div>
                   )}

@@ -110,5 +110,17 @@
     "group": "mpoy371mfcsqz4emu7u",
     "avatar": "https://ui-avatars.com/api/?name=Kenny%20Chui&background=random",
     "createdAt": "2026-05-28T03:40:04.631Z"
+  },
+  {
+    "_id": "mpoyecbsw8szjd3vsqr",
+    "id": "mpoyecbs08btfwbvj5v3",
+    "name": "Wilson Wong",
+    "email": "wilsonwong",
+    "emailAddress": "wilsonwong@simplesymbol.com",
+    "password": "$2a$10$M8O6YqBeczkU0yvQ98PdzOfyh9ELnVHfIIkeYKxYFVbu5NJF2WdcK",
+    "role": "user",
+    "group": "mpoy371mfcsqz4emu7u",
+    "avatar": "https://ui-avatars.com/api/?name=Wilson%20Wong&background=random",
+    "createdAt": "2026-05-28T03:48:52.840Z"
   }
 ]

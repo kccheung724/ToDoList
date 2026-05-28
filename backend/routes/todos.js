@@ -23,7 +23,22 @@ router.get('/', auth, async (req, res) => {
     
     const todos = allTodos.filter(t => {
       const directMatch = t.assignedTo == userId || t.assignedBy == userId;
-      const groupMatch = t.assignedGroup && groupIds.includes(t.assignedGroup);
+      
+      // Handle new assignedGroups array format
+      let groupMatch = false;
+      if (t.assignedGroups) {
+        if (t.assignedGroups.includes('all')) {
+          // Task assigned to all groups - show to everyone
+          groupMatch = true;
+        } else {
+          // Check if any of the task's assigned groups match user's groups
+          groupMatch = t.assignedGroups.some(groupId => groupIds.includes(groupId));
+        }
+      } else if (t.assignedGroup) {
+        // Handle old assignedGroup format for backward compatibility
+        groupMatch = groupIds.includes(t.assignedGroup);
+      }
+      
       return directMatch || groupMatch;
     });
     res.json(todos);
@@ -58,10 +73,10 @@ router.get('/:id', auth, async (req, res) => {
 // Create todo
 router.post('/', auth, async (req, res) => {
   try {
-    const { title, description, remarks, priority, dueDate, assignedTo, assignedGroup, attachments } = req.body;
+    const { title, description, remarks, priority, dueDate, assignedTo, assignedGroup, assignedGroups, attachments } = req.body;
     
     console.log('Creating todo - Full request body:', JSON.stringify(req.body, null, 2));
-    console.log('Creating todo:', { title, description, priority, dueDate, assignedTo, assignedBy: req.user.id });
+    console.log('Creating todo:', { title, description, priority, dueDate, assignedTo, assignedGroup, assignedGroups, assignedBy: req.user.id });
     
     // Validation: Ensure required fields are present
     if (!title || !description || !priority || !dueDate) {
@@ -71,6 +86,9 @@ router.post('/', auth, async (req, res) => {
       });
     }
     
+    // Support both old format (assignedGroup) and new format (assignedGroups)
+    const finalAssignedGroups = assignedGroups || (assignedGroup ? [assignedGroup] : null);
+    
     const todo = await createTodo({
       title,
       description,
@@ -78,7 +96,9 @@ router.post('/', auth, async (req, res) => {
       priority,
       dueDate,
       assignedTo,
-      assignedGroup,
+      assignedGroups: finalAssignedGroups,
+      // Keep assignedGroup for backward compatibility
+      assignedGroup: assignedGroup || (assignedGroups && assignedGroups.length === 1 ? assignedGroups[0] : null),
       attachments,
       assignedBy: req.user.id // Use id not _id for consistency
     });
@@ -94,7 +114,11 @@ router.post('/', auth, async (req, res) => {
 // Update todo
 router.put('/:id', auth, async (req, res) => {
   try {
-    const { title, description, remarks, priority, dueDate, assignedTo, assignedGroup, attachments, completed, completionRemarks } = req.body;
+    const { title, description, remarks, priority, dueDate, assignedTo, assignedGroup, assignedGroups, attachments, completed, completionRemarks } = req.body;
+    
+    // Support both old format (assignedGroup) and new format (assignedGroups)
+    const finalAssignedGroups = assignedGroups || (assignedGroup ? [assignedGroup] : null);
+    
     const todo = await updateTodo(req.params.id, { 
       title, 
       description, 
@@ -102,7 +126,9 @@ router.put('/:id', auth, async (req, res) => {
       priority, 
       dueDate, 
       assignedTo, 
-      assignedGroup, 
+      assignedGroups: finalAssignedGroups,
+      // Keep assignedGroup for backward compatibility
+      assignedGroup: assignedGroup || (assignedGroups && assignedGroups.length === 1 ? assignedGroups[0] : null),
       attachments, 
       completed, 
       completionRemarks 
