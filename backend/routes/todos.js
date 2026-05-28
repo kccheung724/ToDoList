@@ -15,26 +15,17 @@ router.get('/', auth, async (req, res) => {
     const currentUser = allUsers.find(u => u.id == userId || u._id == userId);
     const userIds = [userId, currentUser?._id].filter(Boolean);
     
-    console.log('req.user:', req.user);
-    console.log('currentUser:', currentUser);
-    
     // Get groups the user is a member of
     const memberOfGroups = userGroups.filter(g => 
       g.members && g.members.some(m => userIds.includes(m))
     );
     const groupIds = memberOfGroups.flatMap(g => [g._id, g.id].filter(Boolean));
     
-    console.log('Fetching todos for user:', userId, 'User IDs:', userIds, 'Total todos:', allTodos.length);
-    console.log('User groups:', memberOfGroups.map(g => g.name), 'Group IDs:', groupIds);
-    
     const todos = allTodos.filter(t => {
       const directMatch = t.assignedTo == userId || t.assignedBy == userId;
       const groupMatch = t.assignedGroup && groupIds.includes(t.assignedGroup);
-      const match = directMatch || groupMatch;
-      if (match && t.assignedGroup) console.log('Matched todo:', t._id, 'assignedGroup:', t.assignedGroup, 'directMatch:', directMatch, 'groupMatch:', groupMatch);
-      return match;
+      return directMatch || groupMatch;
     });
-    console.log('Returning todos:', todos.length);
     res.json(todos);
   } catch (error) {
     console.error('Fetch todos error:', error);

@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react'
 import { CheckCircle2, Clock, AlertCircle, TrendingUp, User, Users, X, Check, Calendar, FileText } from 'lucide-react'
 import { useUsers } from '../hooks/useUsers'
-import { useGroups } from '../hooks/useGroups'
 
 function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => {}, todos = [], toggleTodo, updateTodo, addAttachment }) {
   const { currentUser, users } = useUsers()
-  const { getUserGroups } = useGroups()
   const [showWelcome, setShowWelcome] = useState(true)
   const [showTaskList, setShowTaskList] = useState(false)
   const [showFilteredTasks, setShowFilteredTasks] = useState(false)
@@ -15,29 +13,8 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
   const [completionRemarks, setCompletionRemarks] = useState('')
   const [showCompletionRemarks, setShowCompletionRemarks] = useState(false)
 
-  // Filter todos for current user (including group assignments)
-  const userTodos = currentUser 
-    ? todos.filter(todo => {
-        const directAssignment = todo.assignedTo == currentUser.id || todo.assignedBy == currentUser.id
-        const userIds = [currentUser.id, currentUser._id].filter(Boolean)
-        const userGroups = userIds.flatMap(id => getUserGroups(id))
-        const groupIds = userGroups.flatMap(g => [g._id, g.id].filter(Boolean))
-        const groupAssignment = todo.assignedGroup && groupIds.includes(todo.assignedGroup)
-        if (todo.assignedGroup) {
-          console.log('Dashboard filter:', {
-            todoTitle: todo.title,
-            assignedGroup: todo.assignedGroup,
-            userIds,
-            currentUser,
-            userGroups: userGroups.map(g => ({name: g.name, _id: g._id, id: g.id})),
-            groupIds,
-            groupAssignment,
-            directAssignment
-          })
-        }
-        return directAssignment || groupAssignment
-      })
-    : todos
+  // Backend now handles filtering, so use todos as-is
+  const userTodos = todos
 
   const totalTodos = userTodos.length
   const completedTodos = userTodos.filter(todo => todo.completed).length
