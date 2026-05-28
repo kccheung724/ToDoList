@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay, addMonths, subMonths, getDate } from 'date-fns'
 import { useUsers } from '../hooks/useUsers'
+import { useGroups } from '../hooks/useGroups'
 import { CheckCircle2, Clock, X, Calendar as CalendarIcon, FileText, User, Users, ChevronLeft, ChevronRight } from 'lucide-react'
 
 function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
@@ -8,6 +9,7 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
   const [selectedTodo, setSelectedTodo] = useState(null)
   const [completionRemarks, setCompletionRemarks] = useState('')
   const { users, currentUser } = useUsers()
+  const { groups } = useGroups()
 
   // Get todos for a specific date
   const getTodosForDate = (date) => {
@@ -225,12 +227,14 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
               )}
 
               {/* Assigned To */}
-              {selectedTodo.assignedTo && (
+              {(selectedTodo.assignedTo || selectedTodo.assignedGroup) && (
                 <div>
                   <h4 className="text-sm text-muted mb-1">Assigned To</h4>
                   <p className="text-gray-300 flex items-center gap-2">
                     <Users size={16} />
-                    {users.find(u => u.id === selectedTodo.assignedTo)?.name || 'Unknown'}
+                    {selectedTodo.assignedTo && users.find(u => u.id === selectedTodo.assignedTo)?.name}
+                    {selectedTodo.assignedTo && selectedTodo.assignedGroup && ' / '}
+                    {selectedTodo.assignedGroup && groups.find(g => g._id === selectedTodo.assignedGroup || g.id === selectedTodo.assignedGroup)?.name}
                   </p>
                 </div>
               )}

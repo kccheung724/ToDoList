@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { CheckCircle2, Clock, AlertCircle, TrendingUp, User, Users, X, Check, Calendar, FileText } from 'lucide-react'
 import { useUsers } from '../hooks/useUsers'
+import { useGroups } from '../hooks/useGroups'
 
 function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => {}, todos = [], toggleTodo, updateTodo, addAttachment }) {
   const { currentUser, users } = useUsers()
+  const { groups } = useGroups()
   const [showWelcome, setShowWelcome] = useState(true)
   const [showTaskList, setShowTaskList] = useState(false)
   const [showFilteredTasks, setShowFilteredTasks] = useState(false)
@@ -473,12 +475,14 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
               )}
 
               {/* Assigned To */}
-              {selectedTodo.assignedTo && (
+              {(selectedTodo.assignedTo || selectedTodo.assignedGroup) && (
                 <div>
                   <h4 className="text-sm text-muted mb-1">Assigned To</h4>
                   <p className="text-gray-300 flex items-center gap-2">
                     <Users size={16} />
-                    {users.find(u => u.id === selectedTodo.assignedTo)?.name || 'Unknown'}
+                    {selectedTodo.assignedTo && users.find(u => u.id === selectedTodo.assignedTo)?.name}
+                    {selectedTodo.assignedTo && selectedTodo.assignedGroup && ' / '}
+                    {selectedTodo.assignedGroup && groups.find(g => g._id === selectedTodo.assignedGroup || g.id === selectedTodo.assignedGroup)?.name}
                   </p>
                 </div>
               )}

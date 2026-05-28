@@ -18,7 +18,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
   const [completionRemarks, setCompletionRemarks] = useState('')
   const [showCompletionRemarks, setShowCompletionRemarks] = useState(false)
   const { users, currentUser, refreshUsers } = useUsers()
-  const { groups, getUserGroups } = useGroups()
+  const { groups } = useGroups()
 
   // Refresh users from localStorage on mount
   useEffect(() => {
@@ -549,12 +549,14 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
               )}
 
               {/* Assigned To */}
-              {selectedTodo.assignedTo && (
+              {(selectedTodo.assignedTo || selectedTodo.assignedGroup) && (
                 <div>
                   <h4 className="text-sm text-muted mb-1">Assigned To</h4>
                   <p className="text-gray-300 flex items-center gap-2">
                     <Users size={16} />
-                    {users.find(u => u.id == selectedTodo.assignedTo)?.name || 'Unknown'}
+                    {selectedTodo.assignedTo && users.find(u => u.id == selectedTodo.assignedTo)?.name}
+                    {selectedTodo.assignedTo && selectedTodo.assignedGroup && ' / '}
+                    {selectedTodo.assignedGroup && groups.find(g => g._id == selectedTodo.assignedGroup || g.id == selectedTodo.assignedGroup)?.name}
                   </p>
                 </div>
               )}
