@@ -35,10 +35,12 @@
     "assignedGroup": "all",
     "assignedBy": "mpdkioh6wdujlmyvu8n",
     "createdAt": "2026-05-27T08:32:46.174Z",
-    "updatedAt": "2026-05-28T06:37:54.341Z",
+    "updatedAt": "2026-05-28T07:30:12.949Z",
     "assignedGroups": [
       "all"
-    ]
+    ],
+    "completed": true,
+    "completedAt": "2026-05-28T07:30:12.943Z"
   },
   {
     "_id": "mpntgk0zin9icavpgve",
@@ -187,5 +189,59 @@
     "completed": false,
     "createdAt": "2026-05-28T07:19:06.673Z",
     "updatedAt": "2026-05-28T07:19:06.673Z"
+  },
+  {
+    "_id": "mpp8bhxpcxf6lweyco4",
+    "id": "mpp8bhxpxjrtp9e3dfo",
+    "title": "4pm Dollarama - Tom (Shantou) (Summer toys / Regular Toys)",
+    "description": "4pm Dollarama - Tom (Shantou)\n(Summer toys / Regular Toys)",
+    "remarks": "",
+    "priority": "medium",
+    "dueDate": "2026-06-05",
+    "assignedTo": null,
+    "assignedGroups": [
+      "all"
+    ],
+    "assignedGroup": "all",
+    "attachments": [],
+    "assignedBy": "mpnuwakh19db3pc8w1j",
+    "completed": false,
+    "createdAt": "2026-05-28T08:26:36.301Z",
+    "updatedAt": "2026-05-28T08:26:36.301Z"
+  },
+  {
+    "_id": "mpp8cre6t5ygg414up",
+    "id": "mpp8cre6dkaytin05ha",
+    "title": "Tiger - Supplier Conference (Tiger SH office)",
+    "description": "Tiger - Supplier Conference\n(Tiger SH office)",
+    "remarks": "",
+    "priority": "medium",
+    "dueDate": "2026-06-09",
+    "assignedTo": null,
+    "assignedGroups": [
+      "all"
+    ],
+    "assignedGroup": "all",
+    "attachments": [],
+    "assignedBy": "mpnuwakh19db3pc8w1j",
+    "completed": false,
+    "createdAt": "2026-05-28T08:27:35.214Z",
+    "updatedAt": "2026-05-28T08:27:35.214Z"
+  },
+  {
+    "_id": "mpp8xtyt5uwvsx7rr9e",
+    "id": "mpp8xtytxazex13bk6",
+    "title": "Deadline: Rebuy Samples for D/T (D50 Home Decor) Deadline: New Samples for D/T  (D24 Party)",
+    "description": "",
+    "priority": "medium",
+    "dueDate": "2026-06-15",
+    "assignedTo": null,
+    "assignedGroups": [
+      "all"
+    ],
+    "assignedGroup": "all",
+    "assignedBy": "mpnuwakh19db3pc8w1j",
+    "createdAt": "2026-05-28T08:43:58.325Z",
+    "updatedAt": "2026-05-28T08:44:43.318Z"
   }
 ]

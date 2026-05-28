@@ -218,12 +218,12 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
       <div className="bg-surface rounded-xl p-6 border border-gray-700">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex gap-4">
-            <input
-              type="text"
+            <textarea
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Add a new task..."
-              className="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-primary transition-colors"
+              rows="2"
+              className="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-primary transition-colors resize-none"
             />
             <button
               type="submit"
