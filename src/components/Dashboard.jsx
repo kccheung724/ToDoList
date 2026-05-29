@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { CheckCircle2, Clock, AlertCircle, TrendingUp, User, Users, X, Check, Calendar, FileText } from 'lucide-react'
+import { CheckCircle2, Clock, AlertCircle, TrendingUp, User, Users, X, Check, Calendar, FileText, AlertTriangle } from 'lucide-react'
 import { useUsers } from '../hooks/useUsers'
 import { useGroups } from '../hooks/useGroups'
 
@@ -22,6 +22,30 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
   const [editAssignedTo, setEditAssignedTo] = useState('')
   const [editAssignedGroups, setEditAssignedGroups] = useState([])
   const [editAssignToAllGroups, setEditAssignToAllGroups] = useState(false)
+  const [dueTodayTasks, setDueTodayTasks] = useState([])
+  const [showDueTodayPopup, setShowDueTodayPopup] = useState(false)
+
+  // Check for tasks due today and respect dismissal
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0]
+    const dismissedDate = localStorage.getItem('dueTodayDismissed')
+    if (dismissedDate === today) return // Already dismissed today
+
+    const dueToday = todos.filter(todo => {
+      if (todo.completed) return false
+      const todoDate = todo.dueDate
+      return todoDate === today
+    })
+    if (dueToday.length > 0) {
+      setDueTodayTasks(dueToday)
+      setShowDueTodayPopup(true)
+    }
+  }, [todos])
+
+  const dismissDueToday = () => {
+    localStorage.setItem('dueTodayDismissed', new Date().toISOString().split('T')[0])
+    setShowDueTodayPopup(false)
+  }
 
   // Check if user can edit task (creator or admin)
   const canEditTask = (todo) => {
@@ -802,6 +826,67 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                   </div>
                 </>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Due Today Popup */}
+      {showDueTodayPopup && dueTodayTasks.length > 0 && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-[60]">
+          <div className="bg-surface rounded-xl p-6 border-2 border-yellow-500 max-w-md w-full animate-bounce-in animate-flash-border shadow-2xl shadow-yellow-500/20">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="animate-pulse">
+                <AlertTriangle size={32} className="text-yellow-500" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-yellow-500 animate-pulse">
+                  Due Today!
+                </h3>
+                <p className="text-sm text-muted">
+                  {dueTodayTasks.length} task{dueTodayTasks.length > 1 ? 's' : ''} need{dueTodayTasks.length === 1 ? 's' : ''} your attention
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-2 max-h-[300px] overflow-y-auto">
+              {dueTodayTasks.map(todo => (
+                <div
+                  key={todo._id || todo.id}
+                  onClick={() => {
+                    setSelectedTodo(todo)
+                    setShowDueTodayPopup(false)
+                  }}
+                  className={`p-3 rounded-lg cursor-pointer transition-all hover:scale-[1.02] ${
+                    todo.priority === 'high'
+                      ? 'bg-red-500/20 border border-red-500/50'
+                      : todo.priority === 'medium'
+                      ? 'bg-yellow-500/20 border border-yellow-500/50'
+                      : 'bg-blue-500/20 border border-blue-500/50'
+                  }`}
+                >
+                  <div className="font-semibold text-white">{todo.title}</div>
+                  {todo.subtitle && <div className="text-sm text-gray-400">{todo.subtitle}</div>}
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${
+                      todo.priority === 'high' ? 'bg-red-500 text-white' :
+                      todo.priority === 'medium' ? 'bg-yellow-500 text-black' :
+                      'bg-blue-500 text-white'
+                    }`}>
+                      {todo.priority}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex gap-3 mt-6">
+              <button
+                onClick={dismissDueToday}
+                className="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors text-white"
+              >
+                Dismiss (Until Tomorrow)
+              </button>
             </div>
           </div>
         </div>
