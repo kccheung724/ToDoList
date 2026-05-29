@@ -109,13 +109,11 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
     (todo.assignedBy && (todo.assignedBy == userId || todo.assignedBy == currentUser?._id))
   )
 
-  const totalTodos = userTodos.length
-  const completedTodos = userTodos.filter(todo => todo.completed).length
+  const totalTodos = myTodos.length
+  const completedTodos = myTodos.filter(todo => todo.completed).length
   const pendingTodos = totalTodos - completedTodos
-  const highPriorityTodos = userTodos.filter(todo => !todo.completed && todo.priority === 'high').length
-  const myTotalTodos = myTodos.length
-  const myCompletedTodos = myTodos.filter(todo => todo.completed).length
-  const completionRate = myTotalTodos > 0 ? Math.round((myCompletedTodos / myTotalTodos) * 100) : 0
+  const highPriorityTodos = myTodos.filter(todo => !todo.completed && todo.priority === 'high').length
+  const completionRate = totalTodos > 0 ? Math.round((completedTodos / totalTodos) * 100) : 0
 
   // Get this week's tasks (tasks due within the next 7 days or overdue)
   const getThisWeekTasks = () => {
@@ -136,17 +134,17 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
     { title: 'Total Tasks', value: totalTodos, icon: CheckCircle2, color: 'from-blue-500 to-blue-600', filter: 'all', onClick: () => setShowTaskList(true) },
     { title: 'Completed', value: completedTodos, icon: CheckCircle2, color: 'from-green-500 to-green-600', onClick: () => {
       setFilteredTasksTitle('Completed Tasks')
-      setFilteredTasks(userTodos.filter(t => t.completed))
+      setFilteredTasks(myTodos.filter(t => t.completed))
       setShowFilteredTasks(true)
     }},
     { title: 'Pending', value: pendingTodos, icon: Clock, color: 'from-yellow-500 to-yellow-600', onClick: () => {
       setFilteredTasksTitle('Pending Tasks')
-      setFilteredTasks(userTodos.filter(t => !t.completed))
+      setFilteredTasks(myTodos.filter(t => !t.completed))
       setShowFilteredTasks(true)
     }},
     { title: 'High Priority', value: highPriorityTodos, icon: AlertCircle, color: 'from-red-500 to-red-600', onClick: () => {
       setFilteredTasksTitle('High Priority Tasks')
-      setFilteredTasks(userTodos.filter(t => t.priority === 'high'))
+      setFilteredTasks(myTodos.filter(t => t.priority === 'high'))
       setShowFilteredTasks(true)
     }},
   ]
