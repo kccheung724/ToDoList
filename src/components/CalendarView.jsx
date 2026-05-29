@@ -172,6 +172,8 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
                           ? 'bg-red-600 text-white'
                           : todo.priority === 'medium'
                           ? 'bg-yellow-600 text-white'
+                          : todo.priority === 'announcement'
+                          ? 'bg-purple-600 text-white'
                           : 'bg-blue-600 text-white'
                       }`}
                     >
@@ -263,6 +265,7 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
                       <option value="low">Low</option>
                       <option value="medium">Medium</option>
                       <option value="high">High</option>
+                      <option value="announcement">Announcement</option>
                     </select>
                   </div>
 
@@ -405,6 +408,7 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
                     <span className={`text-sm px-2 py-1 rounded-full ${
                       selectedTodo.priority === 'high' ? 'bg-red-500/20 text-red-400' :
                       selectedTodo.priority === 'medium' ? 'bg-yellow-500/20 text-yellow-400' :
+                      selectedTodo.priority === 'announcement' ? 'bg-purple-500/20 text-purple-400' :
                       'bg-blue-500/20 text-blue-400'
                     }`}>
                       {selectedTodo.priority}
@@ -549,7 +553,7 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
                     </label>
 
                     {/* Complete Task Button - Saves remarks automatically */}
-                    {!selectedTodo.completed && (
+                    {!selectedTodo.completed && selectedTodo.priority !== 'announcement' && (
                       <button
                         onClick={() => {
                           toggleTodo(selectedTodo._id || selectedTodo.id)

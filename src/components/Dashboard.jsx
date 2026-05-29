@@ -250,6 +250,8 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                         ? 'border-red-500/30 bg-red-500/10'
                         : todo.priority === 'medium'
                         ? 'border-yellow-500/30 bg-yellow-500/10'
+                        : todo.priority === 'announcement'
+                        ? 'border-purple-500/30 bg-purple-500/10'
                         : 'border-gray-700 bg-gray-800/50'
                     }`}
                   >
@@ -265,6 +267,7 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                         <span className={`text-xs px-2 py-0.5 rounded-full ${
                           todo.priority === 'high' ? 'bg-red-500/20 text-red-400' :
                           todo.priority === 'medium' ? 'bg-yellow-500/20 text-yellow-400' :
+                          todo.priority === 'announcement' ? 'bg-purple-500/20 text-purple-400' :
                           'bg-blue-500/20 text-blue-400'
                         }`}>
                           {todo.priority}
@@ -297,6 +300,8 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                     ? 'border-red-500/30 bg-red-500/10'
                     : todo.priority === 'medium'
                     ? 'border-yellow-500/30 bg-yellow-500/10'
+                    : todo.priority === 'announcement'
+                    ? 'border-purple-500/30 bg-purple-500/10'
                     : 'border-gray-700 bg-gray-800/50'
                 }`}
               >
@@ -309,6 +314,8 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                         ? 'bg-red-500'
                         : todo.priority === 'medium'
                         ? 'bg-yellow-500'
+                        : todo.priority === 'announcement'
+                        ? 'bg-purple-500'
                         : 'bg-blue-500'
                     }`}
                   />
@@ -354,13 +361,15 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                         ? 'border-red-500/30 bg-red-500/10'
                         : todo.priority === 'medium'
                         ? 'border-yellow-500/30 bg-yellow-500/10'
+                        : todo.priority === 'announcement'
+                        ? 'border-purple-500/30 bg-purple-500/10'
                         : 'border-gray-700 bg-gray-800/50'
                     }`}
                   >
                     <div className="flex items-center gap-3 flex-1">
                       {/* Status indicator (non-clickable) */}
                       <div className={`w-3 h-3 rounded-full flex-shrink-0 ${
-                        todo.completed ? 'bg-green-500' : 'bg-yellow-500'
+                        todo.completed ? 'bg-green-500' : todo.priority === 'announcement' ? 'bg-purple-500' : 'bg-yellow-500'
                       }`} />
                       <div className="flex-1">
                         <span className={todo.completed ? 'line-through text-muted' : ''}>
@@ -370,6 +379,7 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                           <span className={`text-xs px-2 py-0.5 rounded-full ${
                             todo.priority === 'high' ? 'bg-red-500/20 text-red-400' :
                             todo.priority === 'medium' ? 'bg-yellow-500/20 text-yellow-400' :
+                            todo.priority === 'announcement' ? 'bg-purple-500/20 text-purple-400' :
                             'bg-blue-500/20 text-blue-400'
                           }`}>
                             {todo.priority}
@@ -422,13 +432,15 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                         ? 'border-red-500/30 bg-red-500/10'
                         : todo.priority === 'medium'
                         ? 'border-yellow-500/30 bg-yellow-500/10'
+                        : todo.priority === 'announcement'
+                        ? 'border-purple-500/30 bg-purple-500/10'
                         : 'border-gray-700 bg-gray-800/50'
                     }`}
                   >
                     <div className="flex items-center gap-3 flex-1">
                       {/* Status indicator */}
                       <div className={`w-3 h-3 rounded-full flex-shrink-0 ${
-                        todo.completed ? 'bg-green-500' : 'bg-yellow-500'
+                        todo.completed ? 'bg-green-500' : todo.priority === 'announcement' ? 'bg-purple-500' : 'bg-yellow-500'
                       }`} />
                       <div className="flex-1">
                         <span className={todo.completed ? 'line-through text-muted' : ''}>
@@ -438,6 +450,7 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                           <span className={`text-xs px-2 py-0.5 rounded-full ${
                             todo.priority === 'high' ? 'bg-red-500/20 text-red-400' :
                             todo.priority === 'medium' ? 'bg-yellow-500/20 text-yellow-400' :
+                            todo.priority === 'announcement' ? 'bg-purple-500/20 text-purple-400' :
                             'bg-blue-500/20 text-blue-400'
                           }`}>
                             {todo.priority}
@@ -525,6 +538,7 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                       <option value="low">Low</option>
                       <option value="medium">Medium</option>
                       <option value="high">High</option>
+                      <option value="announcement">Announcement</option>
                     </select>
                   </div>
 
@@ -657,6 +671,7 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                     <span className={`text-sm px-2 py-1 rounded-full ${
                       selectedTodo.priority === 'high' ? 'bg-red-500/20 text-red-400' :
                       selectedTodo.priority === 'medium' ? 'bg-yellow-500/20 text-yellow-400' :
+                      selectedTodo.priority === 'announcement' ? 'bg-purple-500/20 text-purple-400' :
                       'bg-blue-500/20 text-blue-400'
                     }`}>
                       {selectedTodo.priority}
@@ -801,7 +816,7 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                     </label>
                     
                     {/* Complete Task Button - Saves remarks automatically */}
-                    {!selectedTodo.completed && (
+                    {!selectedTodo.completed && selectedTodo.priority !== 'announcement' && (
                       <button
                         onClick={() => {
                           toggleTodo(selectedTodo._id || selectedTodo.id)
@@ -862,6 +877,8 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                       ? 'bg-red-500/20 border border-red-500/50'
                       : todo.priority === 'medium'
                       ? 'bg-yellow-500/20 border border-yellow-500/50'
+                      : todo.priority === 'announcement'
+                      ? 'bg-purple-500/20 border border-purple-500/50'
                       : 'bg-blue-500/20 border border-blue-500/50'
                   }`}
                 >
@@ -871,6 +888,7 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
                     <span className={`text-xs px-2 py-0.5 rounded-full ${
                       todo.priority === 'high' ? 'bg-red-500 text-white' :
                       todo.priority === 'medium' ? 'bg-yellow-500 text-black' :
+                      todo.priority === 'announcement' ? 'bg-purple-500 text-white' :
                       'bg-blue-500 text-white'
                     }`}>
                       {todo.priority}

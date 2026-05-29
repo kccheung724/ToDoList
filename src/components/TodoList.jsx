@@ -315,6 +315,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
+                <option value="announcement">Announcement</option>
               </select>
             </div>
             <div className="flex-1">
@@ -508,6 +509,8 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                   ? 'border-red-500/50'
                   : todo.priority === 'medium'
                   ? 'border-yellow-500/50'
+                  : todo.priority === 'announcement'
+                  ? 'border-purple-500/50'
                   : 'border-gray-700'
               }`}
             >
@@ -526,6 +529,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                     <span className={`text-xs px-2 py-1 rounded-full ${
                       todo.priority === 'high' ? 'bg-red-500/20 text-red-400' :
                       todo.priority === 'medium' ? 'bg-yellow-500/20 text-yellow-400' :
+                      todo.priority === 'announcement' ? 'bg-purple-500/20 text-purple-400' :
                       'bg-blue-500/20 text-blue-400'
                     }`}>
                       {todo.priority}
@@ -706,6 +710,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                       <option value="low">Low</option>
                       <option value="medium">Medium</option>
                       <option value="high">High</option>
+                      <option value="announcement">Announcement</option>
                     </select>
                   </div>
 
@@ -848,6 +853,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                     <span className={`text-sm px-2 py-1 rounded-full ${
                       selectedTodo.priority === 'high' ? 'bg-red-500/20 text-red-400' :
                       selectedTodo.priority === 'medium' ? 'bg-yellow-500/20 text-yellow-400' :
+                      selectedTodo.priority === 'announcement' ? 'bg-purple-500/20 text-purple-400' :
                       'bg-blue-500/20 text-blue-400'
                     }`}>
                       {selectedTodo.priority}
@@ -992,7 +998,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                     </label>
 
                     {/* Complete Task Button - Saves remarks automatically */}
-                    {!selectedTodo.completed && (
+                    {!selectedTodo.completed && selectedTodo.priority !== 'announcement' && (
                       <button
                         onClick={() => {
                           toggleTodo(selectedTodo._id || selectedTodo.id)
