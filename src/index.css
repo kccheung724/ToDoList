@@ -14,3 +14,24 @@ body {
   min-height: 100vh;
   color: #f1f5f9;
 }
+
+/* Due Today popup animations */
+@keyframes flash-border {
+  0%, 100% { border-color: rgba(234, 179, 8, 0.5); }
+  50% { border-color: rgba(234, 179, 8, 1); }
+}
+
+@keyframes bounce-in {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.6s ease-out;
+}
+
+.animate-flash-border {
+  animation: flash-border 1s ease-in-out infinite;
+}
