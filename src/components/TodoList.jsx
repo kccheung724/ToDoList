@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Plus, Trash2, Calendar, Filter, Paperclip, Image, FileText, X, User, Users, Clock, CheckCircle2 } from 'lucide-react'
+import { Plus, Trash2, Calendar, Filter, Paperclip, Image, FileText, X, User, Users, Clock, CheckCircle2, Search } from 'lucide-react'
 import { useUsers } from '../hooks/useUsers'
 import { useGroups } from '../hooks/useGroups'
 
@@ -15,6 +15,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
   const [assignToAllGroups, setAssignToAllGroups] = useState(false)
   const [files, setFiles] = useState([])
   const [filter, setFilter] = useState(initialFilter)
+  const [searchQuery, setSearchQuery] = useState('')
   const [expandedTodo, setExpandedTodo] = useState(null)
   const [selectedTodo, setSelectedTodo] = useState(null)
   const [completionRemarks, setCompletionRemarks] = useState('')
@@ -187,6 +188,18 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
     if (filter === 'completed') return todo.completed
     if (filter === 'high') return !todo.completed && todo.priority === 'high'
     return true
+  }).filter(todo => {
+    // Search filter
+    if (!searchQuery.trim()) return true
+    const query = searchQuery.toLowerCase()
+    return (
+      todo.title?.toLowerCase().includes(query) ||
+      todo.subtitle?.toLowerCase().includes(query) ||
+      todo.description?.toLowerCase().includes(query) ||
+      todo.assignedByUserName?.toLowerCase().includes(query) ||
+      todo.assignedUserName?.toLowerCase().includes(query) ||
+      todo.assignedGroupNames?.some(name => name.toLowerCase().includes(query))
+    )
   })
 
   const priorityOrder = { high: 0, medium: 1, low: 2 }
@@ -419,23 +432,37 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
       </div>
       )}
 
-      {/* Filter */}
-      <div className="flex items-center gap-2">
-        <Filter size={20} className="text-muted" />
-        <div className="flex gap-2">
-          {['all', 'active', 'completed', 'high'].map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={`px-4 py-2 rounded-lg capitalize transition-all ${
-                filter === f
-                  ? 'bg-primary text-white'
-                  : 'bg-surface text-muted hover:bg-gray-700'
-              }`}
-            >
-              {f === 'high' ? 'High Priority' : f}
-            </button>
-          ))}
+      {/* Filter and Search */}
+      <div className="flex items-center gap-4 flex-wrap">
+        <div className="flex items-center gap-2">
+          <Filter size={20} className="text-muted" />
+          <div className="flex gap-2">
+            {['all', 'active', 'completed', 'high'].map((f) => (
+              <button
+                key={f}
+                onClick={() => setFilter(f)}
+                className={`px-4 py-2 rounded-lg capitalize transition-all ${
+                  filter === f
+                    ? 'bg-primary text-white'
+                    : 'bg-surface text-muted hover:bg-gray-700'
+                }`}
+              >
+                {f === 'high' ? 'High Priority' : f}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="flex-1 min-w-[200px] max-w-md">
+          <div className="relative">
+            <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search tasks..."
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg pl-10 pr-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-primary transition-colors"
+            />
+          </div>
         </div>
       </div>
 
