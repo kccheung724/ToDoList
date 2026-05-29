@@ -466,6 +466,9 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                   <p className={`text-lg ${todo.completed ? 'line-through text-muted' : ''}`}>
                     {todo.title}
                   </p>
+                  {todo.subtitle && (
+                    <p className="text-sm text-gray-400 mt-1">{todo.subtitle}</p>
+                  )}
                   {todo.description && (
                     <p className="text-sm text-muted mt-1">{todo.description}</p>
                   )}

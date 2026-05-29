@@ -171,22 +171,6 @@
     "updatedAt": "2026-05-28T09:04:08.287Z"
   },
   {
-    "_id": "mpp9cbng80rd789nf4d",
-    "id": "mpp9cbngnw1duzylim",
-    "title": "Deadline: Rebuy Samples for D/T (D50 Home Decor)",
-    "description": "Deadline: New Samples for D/T (D24 Party)",
-    "priority": "medium",
-    "dueDate": "2026-06-15",
-    "assignedTo": null,
-    "assignedGroups": [
-      "all"
-    ],
-    "assignedGroup": "all",
-    "assignedBy": "mpnuwakh19db3pc8w1j",
-    "createdAt": "2026-05-28T08:55:14.428Z",
-    "updatedAt": "2026-05-28T08:55:56.944Z"
-  },
-  {
     "_id": "mpp9ltc6048hgox301x4",
     "id": "mpp9ltc6s4yen84b7ag",
     "title": "Deadline: New and Rebuy Samples for D/T\n(D25 Party paper)\nDeadline: New samples for D/T\n(D70 Book, D85 Stationery)",
@@ -204,5 +188,24 @@
     "completed": false,
     "createdAt": "2026-05-28T09:02:37.254Z",
     "updatedAt": "2026-05-28T09:02:37.254Z"
+  },
+  {
+    "_id": "mppa7uou5gnqexhf675",
+    "id": "mppa7uoui5qvtqm96hm",
+    "title": "Deadline: Rebuy Samples for D/T (D50 Home Decor)",
+    "description": "",
+    "remarks": "",
+    "priority": "medium",
+    "dueDate": "2026-06-15",
+    "assignedTo": null,
+    "assignedGroups": [
+      "all"
+    ],
+    "assignedGroup": "all",
+    "attachments": [],
+    "assignedBy": "mpnuwakh19db3pc8w1j",
+    "completed": false,
+    "createdAt": "2026-05-28T09:19:45.438Z",
+    "updatedAt": "2026-05-28T09:19:45.438Z"
   }
 ]
