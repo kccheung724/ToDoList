@@ -51,6 +51,21 @@ router.get('/', auth, async (req, res) => {
       return directMatch || groupMatch;
     });
     
+    // Auto-complete announcement tasks after due date
+    const today = new Date().toISOString().split('T')[0];
+    for (const todo of todos) {
+      if (todo.priority === 'announcement' && !todo.completed && todo.dueDate) {
+        const dueDate = new Date(todo.dueDate);
+        const nextDay = new Date(dueDate);
+        nextDay.setDate(dueDate.getDate() + 1);
+        const nextDayStr = nextDay.toISOString().split('T')[0];
+        if (today >= nextDayStr) {
+          await updateTodo(todo.id || todo._id, { completed: true });
+          todo.completed = true;
+        }
+      }
+    }
+
     // Populate user names in todos
     const todosWithUserNames = todos.map(t => {
       const assignedToUser = t.assignedTo ? allUsers.find(u => u.id == t.assignedTo || u._id == t.assignedTo) : null;
