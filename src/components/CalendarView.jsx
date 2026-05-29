@@ -10,6 +10,7 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
   const [completionRemarks, setCompletionRemarks] = useState('')
   const [isEditing, setIsEditing] = useState(false)
   const [editTitle, setEditTitle] = useState('')
+  const [editSubtitle, setEditSubtitle] = useState('')
   const [editDescription, setEditDescription] = useState('')
   const [editPriority, setEditPriority] = useState('medium')
   const [editDueDate, setEditDueDate] = useState('')
@@ -25,6 +26,7 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
   const startEdit = () => {
     if (selectedTodo) {
       setEditTitle(selectedTodo.title)
+      setEditSubtitle(selectedTodo.subtitle || '')
       setEditDescription(selectedTodo.description)
       setEditPriority(selectedTodo.priority)
       setEditDueDate(selectedTodo.dueDate)
@@ -53,6 +55,7 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
     if (selectedTodo) {
       await updateTodo(selectedTodo._id || selectedTodo.id, {
         title: editTitle,
+        subtitle: editSubtitle,
         description: editDescription,
         priority: editPriority,
         dueDate: editDueDate,
@@ -173,6 +176,7 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
                       }`}
                     >
                       <div className="font-semibold">{todo.title}</div>
+                      {todo.subtitle && <div className="text-[10px] opacity-80 mt-0.5">{todo.subtitle}</div>}
                       {todo.description && <div className="text-[10px] opacity-90 mt-0.5">{todo.description}</div>}
                     </div>
                   ))}
@@ -227,6 +231,18 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
                       type="text"
                       value={editTitle}
                       onChange={(e) => setEditTitle(e.target.value)}
+                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
+                    />
+                  </div>
+
+                  {/* Edit Subtitle */}
+                  <div>
+                    <h4 className="text-sm text-muted mb-1">Subtitle</h4>
+                    <input
+                      type="text"
+                      value={editSubtitle}
+                      onChange={(e) => setEditSubtitle(e.target.value)}
+                      placeholder="Subtitle (optional)..."
                       className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
                     />
                   </div>
@@ -346,6 +362,16 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
                       {selectedTodo.title}
                     </p>
                   </div>
+
+                  {/* Subtitle */}
+                  {selectedTodo.subtitle && (
+                    <div>
+                      <h4 className="text-sm text-muted mb-1">Subtitle</h4>
+                      <p className="text-gray-300">
+                        {selectedTodo.subtitle}
+                      </p>
+                    </div>
+                  )}
 
                   {/* Status */}
                   <div>

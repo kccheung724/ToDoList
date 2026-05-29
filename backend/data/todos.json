@@ -53,10 +53,12 @@
     "assignedGroup": "all",
     "assignedBy": "mpdkioh6wdujlmyvu8n",
     "createdAt": "2026-05-27T08:42:51.875Z",
-    "updatedAt": "2026-05-28T09:10:57.516Z",
+    "updatedAt": "2026-05-29T02:54:12.702Z",
     "assignedGroups": [
       "all"
-    ]
+    ],
+    "completed": true,
+    "completedAt": "2026-05-29T02:54:12.698Z"
   },
   {
     "_id": "mpntoj3md3ovh111aho",
@@ -69,10 +71,12 @@
     "assignedGroup": "all",
     "assignedBy": "mpdkioh6wdujlmyvu8n",
     "createdAt": "2026-05-27T08:49:03.922Z",
-    "updatedAt": "2026-05-28T06:38:10.558Z",
+    "updatedAt": "2026-05-29T02:54:14.346Z",
     "assignedGroups": [
       "all"
-    ]
+    ],
+    "completed": true,
+    "completedAt": "2026-05-29T02:54:14.338Z"
   },
   {
     "_id": "mpou9hdrb4icllixn8e",
@@ -173,9 +177,8 @@
   {
     "_id": "mpp9ltc6048hgox301x4",
     "id": "mpp9ltc6s4yen84b7ag",
-    "title": "Deadline: New and Rebuy Samples for D/T\n(D25 Party paper)\nDeadline: New samples for D/T\n(D70 Book, D85 Stationery)",
-    "description": "",
-    "remarks": "",
+    "title": "Deadline: New and Rebuy Samples for D/T(D25 Party paper)",
+    "description": "Deadline: New samples for D/T(D70 Book, D85 Stationery)",
     "priority": "medium",
     "dueDate": "2026-06-12",
     "assignedTo": null,
@@ -183,11 +186,9 @@
       "all"
     ],
     "assignedGroup": "all",
-    "attachments": [],
     "assignedBy": "mpnuwakh19db3pc8w1j",
-    "completed": false,
     "createdAt": "2026-05-28T09:02:37.254Z",
-    "updatedAt": "2026-05-28T09:02:37.254Z"
+    "updatedAt": "2026-05-29T02:27:26.370Z"
   },
   {
     "_id": "mppa7uou5gnqexhf675",
@@ -207,5 +208,24 @@
     "completed": false,
     "createdAt": "2026-05-28T09:19:45.438Z",
     "updatedAt": "2026-05-28T09:19:45.438Z"
+  },
+  {
+    "_id": "mpqbxqh55qtcamdni3b",
+    "id": "mpqbxqh5utefi60cxm9",
+    "title": "2pm - 2:30pm D/T - Margaret Carroll\nRyan Nicholson & Kathy Liu\n(D85 Stationery) (DT SZ office)",
+    "description": "",
+    "remarks": "",
+    "priority": "medium",
+    "dueDate": "2026-05-29",
+    "assignedTo": null,
+    "assignedGroups": [
+      "all"
+    ],
+    "assignedGroup": "all",
+    "attachments": [],
+    "assignedBy": "mpnuwakh19db3pc8w1j",
+    "completed": false,
+    "createdAt": "2026-05-29T02:55:38.825Z",
+    "updatedAt": "2026-05-29T02:55:38.825Z"
   }
 ]
