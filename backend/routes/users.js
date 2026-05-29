@@ -4,6 +4,22 @@ const bcrypt = require('bcryptjs');
 const { auth, adminAuth } = require('../middleware/auth');
 const { getUsers, findUserById, updateUser, deleteUser, getGroups, updateGroup } = require('../utils/storage');
 
+// Get basic user info (all authenticated users)
+router.get('/basic', auth, async (req, res) => {
+  try {
+    const users = await getUsers();
+    // Return only id and name for user selection dropdowns
+    const basicUsers = users.map(u => ({
+      id: u.id || u._id,
+      name: u.name
+    }));
+    res.json(basicUsers);
+  } catch (error) {
+    console.error('Get basic users error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Get all users (admin only)
 router.get('/', auth, adminAuth, async (req, res) => {
   try {

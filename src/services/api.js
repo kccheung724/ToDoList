@@ -73,6 +73,9 @@ export const usersAPI = {
   getAll: async () => {
     return await apiRequest('/users');
   },
+  getBasic: async () => {
+    return await apiRequest('/users/basic');
+  },
 
   getById: async (id) => {
     return await apiRequest(`/users/${id}`);

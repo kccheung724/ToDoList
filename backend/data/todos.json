@@ -264,5 +264,24 @@
     "completed": false,
     "createdAt": "2026-05-29T03:53:34.764Z",
     "updatedAt": "2026-05-29T03:53:34.764Z"
+  },
+  {
+    "_id": "mpqfk99ls70y15loddq",
+    "id": "mpqfk99l3tzz9e3f9dk",
+    "title": "sourcing",
+    "description": "home decor",
+    "remarks": "",
+    "priority": "medium",
+    "dueDate": "2026-06-05",
+    "assignedTo": null,
+    "assignedGroups": [
+      "mpotuffrj7lmwn6fijf"
+    ],
+    "assignedGroup": "mpotuffrj7lmwn6fijf",
+    "attachments": [],
+    "assignedBy": "mpdr8wg4wea18jolid",
+    "completed": false,
+    "createdAt": "2026-05-29T04:37:08.457Z",
+    "updatedAt": "2026-05-29T04:37:08.457Z"
   }
 ]

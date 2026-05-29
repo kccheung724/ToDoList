@@ -32,12 +32,15 @@ export function useUsers() {
 
   // Load users list
   const refreshUsers = async () => {
-    if (!currentUser || currentUser.role !== 'admin') return
+    if (!currentUser) return
     
     setLoading(true)
     setError(null)
     try {
-      const data = await usersAPI.getAll()
+      // Admin gets full user data, regular users get basic info
+      const data = currentUser.role === 'admin' 
+        ? await usersAPI.getAll()
+        : await usersAPI.getBasic()
       setUsers(data)
     } catch (error) {
       setError(error.message)
@@ -47,9 +50,9 @@ export function useUsers() {
     }
   }
 
-  // Load users when current user is set and is admin
+  // Load users when current user is set
   useEffect(() => {
-    if (currentUser?.role === 'admin') {
+    if (currentUser) {
       refreshUsers()
     }
   }, [currentUser])
