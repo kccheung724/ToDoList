@@ -156,8 +156,8 @@
     "assignedGroup": "all",
     "assignedBy": "mpnuwakh19db3pc8w1j",
     "createdAt": "2026-05-28T08:26:36.301Z",
-    "updatedAt": "2026-05-29T03:01:33.742Z",
-    "subtitle": "1"
+    "updatedAt": "2026-05-29T03:10:01.030Z",
+    "subtitle": ""
   },
   {
     "_id": "mpp8cre6t5ygg414up",
@@ -224,7 +224,45 @@
     "assignedGroup": "all",
     "assignedBy": "mpnuwakh19db3pc8w1j",
     "createdAt": "2026-05-29T02:55:38.825Z",
-    "updatedAt": "2026-05-29T02:59:34.700Z",
-    "subtitle": "3:30pm - 4pm D/T - Colleen Vander Heyden, Carlin Maher, Sydney Kier & Jane Shi (D86 Craft) (DT SZ office)"
+    "updatedAt": "2026-05-29T03:09:00.043Z",
+    "subtitle": ""
+  },
+  {
+    "_id": "mpqcfzdsqhs09pehqv",
+    "id": "mpqcfzdsnbi444j0ijd",
+    "title": "3:30pm - 4pm D/T - Colleen Vander Heyden,\nCarlin Maher, Sydney Kier & Jane Shi\n(D86 Craft) (DT SZ office)",
+    "description": "",
+    "remarks": "",
+    "priority": "medium",
+    "dueDate": "2026-05-29",
+    "assignedTo": null,
+    "assignedGroups": [
+      "all"
+    ],
+    "assignedGroup": "all",
+    "attachments": [],
+    "assignedBy": "mpnuwakh19db3pc8w1j",
+    "completed": false,
+    "createdAt": "2026-05-29T03:09:50.176Z",
+    "updatedAt": "2026-05-29T03:09:50.176Z"
+  },
+  {
+    "_id": "mpqe08j09p2lpzfrjct",
+    "id": "mpqe08j0r1r9zu3lwlj",
+    "title": "test0019",
+    "description": "",
+    "remarks": "",
+    "priority": "medium",
+    "dueDate": "2026-05-28",
+    "assignedTo": null,
+    "assignedGroups": [
+      "all"
+    ],
+    "assignedGroup": "all",
+    "attachments": [],
+    "assignedBy": "mpnuwakh19db3pc8w1j",
+    "completed": false,
+    "createdAt": "2026-05-29T03:53:34.764Z",
+    "updatedAt": "2026-05-29T03:53:34.764Z"
   }
 ]
