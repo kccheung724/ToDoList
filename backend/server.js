@@ -33,8 +33,10 @@ const PORT = process.env.PORT || 5000;
 async function startServer() {
   await initDefaultAdmin();
   
-  app.listen(PORT, () => {
+  app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
+    console.log(`Local access: http://localhost:${PORT}`);
+    console.log(`LAN access: http://<your-ip>:${PORT}`);
   });
 }
 
