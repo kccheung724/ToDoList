@@ -177,7 +177,35 @@ router.put('/:id', auth, async (req, res) => {
       return res.status(404).json({ message: 'Todo not found' });
     }
     
-    res.json(todo);
+    // Populate user names in the updated todo
+    const allUsers = await getUsers();
+    const userGroups = await getGroups();
+    
+    const assignedToUser = todo.assignedTo ? allUsers.find(u => u.id == todo.assignedTo || u._id == todo.assignedTo) : null;
+    const assignedByUser = todo.assignedBy ? allUsers.find(u => u.id == todo.assignedBy || u._id == todo.assignedBy) : null;
+    
+    // Populate group names
+    let assignedGroupNames = [];
+    if (todo.assignedGroups && todo.assignedGroups.includes('all')) {
+      assignedGroupNames = ['All Groups'];
+    } else if (todo.assignedGroups) {
+      assignedGroupNames = todo.assignedGroups.map(groupId => {
+        const group = userGroups.find(g => g._id == groupId || g.id == groupId);
+        return group ? group.name : null;
+      }).filter(Boolean);
+    } else if (todo.assignedGroup) {
+      const group = userGroups.find(g => g._id == todo.assignedGroup || g.id == todo.assignedGroup);
+      if (group) assignedGroupNames = [group.name];
+    }
+    
+    const todoWithUserNames = {
+      ...todo,
+      assignedUserName: assignedToUser?.name || null,
+      assignedByUserName: assignedByUser?.name || null,
+      assignedGroupNames
+    };
+    
+    res.json(todoWithUserNames);
   } catch (error) {
     console.error('Update todo error:', error);
     res.status(500).json({ message: 'Server error' });
