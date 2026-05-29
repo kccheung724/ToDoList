@@ -7,7 +7,6 @@ import { CheckCircle2, Clock, X, Calendar as CalendarIcon, FileText, User, Users
 function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
   const [currentMonth, setCurrentMonth] = useState(new Date())
   const [selectedTodo, setSelectedTodo] = useState(null)
-  const [hoveredDay, setHoveredDay] = useState(null)
   const [completionRemarks, setCompletionRemarks] = useState('')
   const [isEditing, setIsEditing] = useState(false)
   const [editTitle, setEditTitle] = useState('')
@@ -161,12 +160,8 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
                 </div>
 
                 {/* Tasks */}
-                <div 
-                  className="space-y-1 relative"
-                  onMouseEnter={() => dayTodos.length > 3 && setHoveredDay(day)}
-                  onMouseLeave={() => setHoveredDay(null)}
-                >
-                  {dayTodos.slice(0, 3).map(todo => (
+                <div className="space-y-1 relative">
+                  {dayTodos.map(todo => (
                     <div
                       key={todo._id || todo.id}
                       onClick={() => setSelectedTodo(todo)}
@@ -182,39 +177,8 @@ function CalendarView({ todos = [], toggleTodo, updateTodo, addAttachment }) {
                     >
                       <div className="font-semibold">{todo.title}</div>
                       {todo.subtitle && <div className="text-[10px] opacity-80 mt-0.5">{todo.subtitle}</div>}
-                      {todo.description && <div className="text-[10px] opacity-90 mt-0.5">{todo.description}</div>}
                     </div>
                   ))}
-                  {dayTodos.length > 3 && (
-                    <div className="text-xs text-gray-400 text-center cursor-pointer hover:text-gray-600">
-                      +{dayTodos.length - 3} more
-                    </div>
-                  )}
-                  
-                  {/* Hover tooltip to show all tasks */}
-                  {hoveredDay && isSameDay(hoveredDay, day) && dayTodos.length > 3 && (
-                    <div className="absolute z-50 left-0 top-full mt-1 w-64 bg-white border border-gray-300 rounded-lg shadow-lg p-2 space-y-1">
-                      <div className="text-xs font-bold text-gray-700 mb-1">All Tasks ({dayTodos.length})</div>
-                      {dayTodos.map(todo => (
-                        <div
-                          key={todo._id || todo.id}
-                          onClick={() => setSelectedTodo(todo)}
-                          className={`text-xs p-1.5 rounded cursor-pointer break-words leading-tight ${
-                            todo.completed
-                              ? 'bg-green-600 text-white'
-                              : todo.priority === 'high'
-                              ? 'bg-red-600 text-white'
-                              : todo.priority === 'medium'
-                              ? 'bg-yellow-600 text-white'
-                              : 'bg-blue-600 text-white'
-                          }`}
-                        >
-                          <div className="font-semibold">{todo.title}</div>
-                          {todo.subtitle && <div className="text-[10px] opacity-80 mt-0.5">{todo.subtitle}</div>}
-                        </div>
-                      ))}
-                    </div>
-                  )}
                 </div>
               </div>
             )
