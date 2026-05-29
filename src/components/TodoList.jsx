@@ -106,11 +106,11 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
       return
     }
     
-    // Validate and convert date format from dd-mm-yyyy to yyyy-mm-dd
-    const dateRegex = /^(\d{2})-(\d{2})-(\d{4})$/
+    // Validate and convert date format from dd/mm/yyyy to yyyy-mm-dd
+    const dateRegex = /^(\d{2})\/(\d{2})\/(\d{4})$/
     const match = dueDate.match(dateRegex)
     if (!match) {
-      alert('Due Date must be in format dd-mm-yyyy (e.g., 28-05-2026)')
+      alert('Due Date must be in format dd/mm/yyyy (e.g., 28/05/2026)')
       return
     }
     const [, day, month, year] = match
@@ -286,10 +286,10 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
               <div className="flex gap-2">
                 <input
                   type="text"
-                  placeholder="dd-mm-yyyy"
+                  placeholder="dd/mm/yyyy"
                   value={dueDate}
                   onChange={(e) => setDueDate(e.target.value)}
-                  pattern="\d{2}-\d{2}-\d{4}"
+                  pattern="\d{2}/\d{2}/\d{4}"
                   className="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
                 />
                 <input
@@ -298,7 +298,7 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
                   onChange={(e) => {
                     if (e.target.value) {
                       const [year, month, day] = e.target.value.split('-')
-                      setDueDate(`${day}-${month}-${year}`)
+                      setDueDate(`${day}/${month}/${year}`)
                     }
                   }}
                   className="hidden"
