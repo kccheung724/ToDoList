@@ -202,6 +202,29 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
     )
   })
 
+  // Highlight search terms in text
+  const highlightText = (text, query) => {
+    if (!query || !text) return text
+    const lowerText = text.toLowerCase()
+    const lowerQuery = query.toLowerCase()
+    const parts = []
+    let lastIndex = 0
+    let index = lowerText.indexOf(lowerQuery)
+    
+    while (index !== -1) {
+      parts.push(text.substring(lastIndex, index))
+      parts.push(
+        <span key={index} className="bg-yellow-400 text-black px-0.5 rounded">
+          {text.substring(index, index + query.length)}
+        </span>
+      )
+      lastIndex = index + query.length
+      index = lowerText.indexOf(lowerQuery, lastIndex)
+    }
+    parts.push(text.substring(lastIndex))
+    return parts
+  }
+
   const priorityOrder = { high: 0, medium: 1, low: 2 }
   const sortedTodos = [...filteredTodos].sort((a, b) => {
     if (a.completed !== b.completed) return a.completed ? 1 : -1
@@ -491,13 +514,13 @@ function TodoList({ initialFilter = 'all', todos = [], addTodo, toggleTodo, upda
               <div className="flex items-center justify-between">
                 <div className="flex-1">
                   <p className={`text-lg ${todo.completed ? 'line-through text-muted' : ''}`}>
-                    {todo.title}
+                    {highlightText(todo.title, searchQuery)}
                   </p>
                   {todo.subtitle && (
-                    <p className="text-sm text-gray-400 mt-1">{todo.subtitle}</p>
+                    <p className="text-sm text-gray-400 mt-1">{highlightText(todo.subtitle, searchQuery)}</p>
                   )}
                   {todo.description && (
-                    <p className="text-sm text-muted mt-1">{todo.description}</p>
+                    <p className="text-sm text-muted mt-1">{highlightText(todo.description, searchQuery)}</p>
                   )}
                   <div className="flex items-center gap-3 mt-2 flex-wrap">
                     <span className={`text-xs px-2 py-1 rounded-full ${
