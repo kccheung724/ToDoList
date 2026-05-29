@@ -102,11 +102,20 @@ function Dashboard({ onStatClick, unreadCount = 0, setShowNotifications = () => 
   // Backend now handles filtering, so use todos as-is
   const userTodos = todos
 
+  // Calculate completion rate only for tasks assigned to or created by current user
+  const userId = currentUser?.id || currentUser?._id
+  const myTodos = userTodos.filter(todo => 
+    (todo.assignedTo && (todo.assignedTo == userId || todo.assignedTo == currentUser?._id)) ||
+    (todo.assignedBy && (todo.assignedBy == userId || todo.assignedBy == currentUser?._id))
+  )
+
   const totalTodos = userTodos.length
   const completedTodos = userTodos.filter(todo => todo.completed).length
   const pendingTodos = totalTodos - completedTodos
   const highPriorityTodos = userTodos.filter(todo => !todo.completed && todo.priority === 'high').length
-  const completionRate = totalTodos > 0 ? Math.round((completedTodos / totalTodos) * 100) : 0
+  const myTotalTodos = myTodos.length
+  const myCompletedTodos = myTodos.filter(todo => todo.completed).length
+  const completionRate = myTotalTodos > 0 ? Math.round((myCompletedTodos / myTotalTodos) * 100) : 0
 
   // Get this week's tasks (tasks due within the next 7 days or overdue)
   const getThisWeekTasks = () => {
